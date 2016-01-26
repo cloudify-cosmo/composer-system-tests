@@ -50,7 +50,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [ 'build' ]);
 
     grunt.registerTask('protract',function( suite ){
-        suite = suite || 'sanity';
+        suite = suite || 'plugins';
         grunt.config.data.suite = suite;
 
         console.log(grunt.template.process('<%= suite %>'));
