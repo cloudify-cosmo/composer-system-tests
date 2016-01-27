@@ -7,7 +7,7 @@
 
 /**
  *
- * functions used in definitions --> plugins section
+ * functions used in definitions --> plugins section.
  *
  **/
 
