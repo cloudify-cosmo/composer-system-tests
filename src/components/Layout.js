@@ -28,7 +28,7 @@ exports.goTo = function( page ){
             var result = text.toLowerCase().trim() === page.toLowerCase().trim();
             console.log('looking for page',text, page, result );
             return result;
-        })
+        });
     }).then(function(results){
         results[0].click();
         console.log('found items', results.length);
