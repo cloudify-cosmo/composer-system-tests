@@ -3,11 +3,11 @@
 
 var timeout = 60000;
 
-var spec= process.env.COMPOSER_SPEC || 'spec/**/*_spec.js';
+var spec= process.env.COMPOSER_SPEC || 'spec/**/*.spec.js';
 
 
 function get_suite(file){
-    return [ 'spec/normalize.js', file+'spec.js'];
+    return [ 'spec/normalize.js', file+'.spec.js'];
 }
 
 // An example configuration file.
@@ -47,10 +47,10 @@ exports.config = {
 
 
     suites: {
-        'plugins' : get_suite('definitions/plugins'),
-        'resources' : get_suite('resources/resources'),
-        'downloadBlueprint' : get_suite('source/downloadBlueprint'),
-        'nodeTypes' : get_suite('stencils/nodeTypes')
+        'plugins' : get_suite('spec/definitions/plugins'),
+        'resources' : get_suite('spec/resources/resources'),
+        'downloadBlueprint' : get_suite('spec/source/downloadBlueprint'),
+        'nodeTypes' : get_suite('spec/stencils/nodeTypes')
     },
     baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://localhost:9000',
 

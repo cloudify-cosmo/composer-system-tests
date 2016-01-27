@@ -24,7 +24,7 @@ describe('plugins section', function() {
 
             components.definitions.page.openUploadPluginDialog();
             components.modals.modal.enterName('tested-plugin');
-            components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+            components.modals.modal.enterUrl('https://s3.amazonaws.com/cloudify-ui/test/cloudify-chef-plugin-1.3.1.zip');
             components.modals.modal.save();
 
             browser.sleep(1000);
@@ -58,7 +58,7 @@ xdescribe('add by url - override', function() {
         components.definitions.page.openUploadPluginDialog();
 
         components.modals.modal.enterName('tested-plugin');
-        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+        components.modals.modal.enterUrl('https://s3.amazonaws.com/cloudify-ui/test/cloudify-chef-plugin-1.3.1.zip');
         components.modals.modal.cancel();
 
         browser.sleep(1000);
@@ -66,7 +66,7 @@ xdescribe('add by url - override', function() {
         components.definitions.page.openUploadPluginDialog();
 
         components.modals.modal.enterName('tested-plugin');
-        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+        components.modals.modal.enterUrl('https://s3.amazonaws.com/cloudify-ui/test/cloudify-chef-plugin-1.3.1.zip');
         components.modals.modal.save();
 
         browser.sleep(5000);
@@ -75,7 +75,7 @@ xdescribe('add by url - override', function() {
         components.definitions.page.openUploadPluginDialog();
 
         components.modals.modal.enterName('tested-plugin');
-        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+        components.modals.modal.enterUrl('https://s3.amazonaws.com/cloudify-ui/test/cloudify-chef-plugin-1.3.1.zip');
         components.modals.modal.save();
 
         browser.sleep(1000);
