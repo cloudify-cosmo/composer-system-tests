@@ -81,6 +81,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//new field should not be added
+
       browser.sleep(1000).then(done);
 
     });
@@ -95,6 +96,7 @@ describe('inputsOutputs page', function() {
       browser.sleep(1000).then(done);
 
     });
+
     it('should remove output', function(done) {
       // remove output
 
@@ -103,6 +105,7 @@ describe('inputsOutputs page', function() {
       browser.sleep(1000).then(done);
 
     });
+
     it('should set input name in outputs value, node property and inlineTypes property field', function(done) {
 
       components.inputsOutputs.page.submitInputOrOutput(inputElement);
@@ -126,11 +129,11 @@ describe('inputsOutputs page', function() {
       propertyDescriptionElement.sendKeys('{ "get_input" : "name"}');// set description value
       components.layout.clickElement(saveInlineTypeElement);//save inline type
 
-      components.layout.goToInputsOutputs();
-
       browser.sleep(1000).then(done);
     });
+
     it('should not remove input name in outputs value, node property and inlineTypes property field', function(done) {
+      components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
       expect(components.inputsOutputs.page.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
@@ -149,12 +152,13 @@ describe('inputsOutputs page', function() {
       components.layout.clickElement(element(by.css('.icon-edit')));//click edit button
       expect(propertyDescriptionElement.getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
 
-      browser.sleep(200);
-      components.layout.goToInputsOutputs();
       browser.sleep(1000).then(done);
     });
 
     it('should remove input name in outputs value node property and inlineTypes property field', function(done) {
+
+      components.layout.goToInputsOutputs();
+
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
       expect(components.inputsOutputs.page.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
 
@@ -163,6 +167,7 @@ describe('inputsOutputs page', function() {
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//input should be removed
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//output should exist
       expect(components.inputsOutputs.page.getOutputValue(outputElement)).toBe('');//output value field should be empty
+      components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
 
       components.layout.goToTopology();
       components.layout.clickElement(element(by.css('.nodeContainer')));
@@ -174,5 +179,26 @@ describe('inputsOutputs page', function() {
 
       browser.sleep(1000).then(done);
     });
+  });
+
+  describe('save inputs and outputs', function() {
+     it('should show input and output after save and page refresh', function(done){
+       components.layout.goToInputsOutputs();
+
+       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+       components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
+       components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
+
+       components.layout.clickElement($('[ng-click="saveOrUpdateBlueprint()"]')); //click save blueprint button
+       browser.sleep(500).then(done);
+
+       browser.refresh();
+       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//input should exist
+       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//output should exist
+
+       browser.sleep(1000).then(done);
+
+     })
   });
 });
