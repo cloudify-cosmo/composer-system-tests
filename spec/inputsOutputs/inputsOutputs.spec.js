@@ -81,7 +81,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//new field should not be added
-
+      browser.refresh();
       browser.sleep(1000).then(done);
 
     });
@@ -90,7 +90,8 @@ describe('inputsOutputs page', function() {
 
     it('should remove input', function(done) {
       // remove input
-
+      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+      components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
       browser.sleep(1000).then(done);
@@ -99,7 +100,8 @@ describe('inputsOutputs page', function() {
 
     it('should remove output', function(done) {
       // remove output
-
+      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
       browser.sleep(1000).then(done);
@@ -108,8 +110,10 @@ describe('inputsOutputs page', function() {
 
     it('should set input name in outputs value, node property and inlineTypes property field', function(done) {
 
-      components.inputsOutputs.page.submitInputOrOutput(inputElement);
-      components.inputsOutputs.page.submitInputOrOutput(outputElement);
+      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
+      components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.renameOutputValue(outputElement);// change the output value as at input name
 
       components.layout.goToTopology();
