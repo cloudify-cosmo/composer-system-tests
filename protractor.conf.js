@@ -50,7 +50,9 @@ exports.config = {
         'plugins' : get_suite('spec/definitions/plugins'),
         'resources' : get_suite('spec/resources/resources'),
         'downloadBlueprint' : get_suite('spec/source/downloadBlueprint'),
-        'nodeTypes' : get_suite('spec/stencils/nodeTypes')
+        'nodeTypes' : get_suite('spec/stencils/nodeTypes'),
+        'topology' : get_suite('spec/topology/topology')
+
     },
     baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://localhost:9000',
 
