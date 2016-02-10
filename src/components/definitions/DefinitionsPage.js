@@ -7,27 +7,27 @@
 
 /**
  *
- * functions used in definitions --> plugins section
+ * functions used in definitions --> plugins section.
  *
  **/
 
 exports.openUploadPluginDialog = function(){
 
-    $$('.display-name').filter((elem, index)=>{
+    $$('.display-name').filter((elem)=>{
         return elem.getText().then((text)=>{
             return text === 'New plugin';
-        })
+        });
     }).click();
 
 };
 
 exports.getPluginName = function(){
 
-    $$('.definition-block').filter((elem, index)=>{
+    $$('.definition-block').filter((elem)=>{
         return elem.getText().then((text)=>{
             console.log('plugin name is: ' + text);
             return text === 'Name';
-        })
+        });
     }).then(function(filteredElements) {
         console.log('plugin name is: ' +  filteredElements[0]);
 
@@ -37,10 +37,10 @@ exports.getPluginName = function(){
 
 exports.getPluginSource = function(){
 
-    $$('.display-name').filter((elem, index)=>{
+    $$('.display-name').filter((elem)=>{
         return elem.getText().then((text)=>{
             return text === 'Source';
-        })
+        });
     });
 
 };

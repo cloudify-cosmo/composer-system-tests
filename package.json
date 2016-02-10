@@ -23,6 +23,8 @@
     "eyes.protractor": "0.0.38"
   },
   "scripts": {
-    "install": "node ./node_modules/protractor/bin/webdriver-manager update"
+    "install": "node ./node_modules/protractor/bin/webdriver-manager update",
+    "test": "grunt"
+
   }
 }

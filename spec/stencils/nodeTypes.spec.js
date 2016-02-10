@@ -2,16 +2,15 @@
  * Created by liron on 9/6/15.
  */
 'use strict';
-var fs = require('fs-extra');
+//var fs = require('fs-extra');
 var logger = require('log4js').getLogger('NodeTypes-e2e');
-var _ = require('lodash');
+//var _ = require('lodash');
 var components = require('../../src/components');
 
 describe('plugins section', function() {
 
     beforeEach(function() {
-        browser.get('/');
-
+        browser.get('/#/login');
         components.login.login('user-' + new Date().getTime());
         // navigate to definitions tab
         browser.sleep(2000);

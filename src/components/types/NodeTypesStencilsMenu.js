@@ -12,21 +12,21 @@
  **/
 
 exports.openAddNewStencilDialog = function(){
-    $$('.addStencil').filter((elem, index)=>{
+    $$('.addStencil').filter((elem)=>{
         return elem.getText().then((text)=>{
             console.log(text);
 
             return text === 'New stencil';
-        })
+        });
     }).click();
 };
 
 exports.collapseAddedTyeps = function(typeName){
-    $$('.stencil-type').filter((elem, index)=>{
+    $$('.stencil-type').filter((elem)=>{
         return elem.getText().then((text)=>{
             console.log('nodeType: ' + text);
             return text === typeName;
-        })
+        });
     }).click();
 };
 
