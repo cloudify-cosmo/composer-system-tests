@@ -2,6 +2,11 @@
 'use strict';
 var components = require('../../src/components');
 
+/**
+ *  * Important *
+ * The tests assume there's a user saved as static_test_user which has only one saved blueprint which contains
+ * one node template of a web_server type.
+ */
 describe('topology section', () => {
 
     beforeEach(() => {
@@ -11,19 +16,13 @@ describe('topology section', () => {
 
     xdescribe('select wanted blueprint', () => {
         it('should be able to select wanted blueprint from dropdown ', (done) => {
-
-             var result = components.topology.page.getBlueprintsList();
-            console.log(result);
-
-            //.click();
-            //  browser.actions().doubleClick($('rect')[1]).perform();
-            browser.sleep(3000);
-            browser.sleep(3000).then(done);
+            done();
+           //  var result = components.topology.page.getBlueprintsList();
         });
     });
 
 
-    xdescribe('rename node in node panel', () => {
+    describe('rename node in node panel', () => {
         it('should be able to rename node ', (done) => {
 
             components.topology.page.openNodePanel();
@@ -38,7 +37,7 @@ describe('topology section', () => {
         });
     });
 
-    xdescribe('set number of instances', () => {
+    describe('set number of instances', () => {
         it('should be able to set new number of instances ', (done) => {
 
             components.topology.page.openNodePanel();
@@ -74,14 +73,29 @@ describe('topology section', () => {
             components.topology.page.openInterfacesEditModal();
             browser.sleep(1000);
             components.topology.page.openImplementationEditModal();
+            browser.sleep(2000);
+            components.topology.page.saveSelectedOperation(); // selects chef_plugin.operations.operation from list operations and saves it.
+            browser.sleep(3000);
+            components.topology.page.closeNodePanel();
+            browser.sleep(1000).then(done);
+        });
+
+        it('should be able to add new input to lifecycle', (done) => {
+            components.topology.page.openNodePanel();
+            browser.sleep(1000);
+            components.topology.page.openInterfacesEditModal();
+            browser.sleep(1000);
+            components.topology.page.addInput(); // adds new input
             browser.sleep(1000);
 
+            //components.topology.page.getInputName();
+            components.topology.page.editInput();
+            browser.actions().sendKeys(protractor.Key.ENTER).perform();
 
             browser.sleep(3000);
             components.topology.page.closeNodePanel();
             browser.sleep(1000).then(done);
         });
-        //openInterfacesEditModal
     });
 
 

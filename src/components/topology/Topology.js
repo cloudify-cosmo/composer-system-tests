@@ -72,6 +72,36 @@ exports.openImplementationEditModal = function(){
 };
 //ng-click="showImplementationEditor(interfacesPropName,interfaceName,method)"
 
+// selects chef_plugin.operations.operation from chef list operations
+function selectOperation(){
+    $$('.plugin-operations li').filter(function(elem, index) {
+        return elem.getText().then(function(text) {
+            return text === 'chef_plugin.operations.operation';
+        });
+    }).first().click();
+}
+
+// saves the selected chef_plugin.operations.operation
+exports.saveSelectedOperation = function(){
+    selectOperation();
+    browser.sleep(2000);
+    $('[ng-click="submit()"]').click();
+};
+
+// adds an input to operation method
+exports.addInput = function(){
+    $('[ng-click="createInput(interfaceName,method,methodData)"]').click();
+};
+
+exports.editInput = function(){
+   return $('[ ng-click="showEdit = true"]').click();
+};
+
+exports.getInputName = function(){
+    //exports.editInput().sendKeys('_newName');
+    //browser.actions().sendKeys(protractor.Key.ENTER).perform();
+};
+
 /***
  * node panel utils ends
  */
