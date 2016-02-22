@@ -4,7 +4,7 @@ set -e
 
 echo "build started"
 
-export VAGRANT_BASEDIR="`pwd`/build/continuous-build" # contains provision script and synced folder
+export VAGRANT_BASEDIR="`pwd`/build/continuous" # contains provision script and synced folder
 export VAGRANT_WORKDIR="${VAGRANT_BASEDIR}/aws" # contains the Vagrantfile itself
 
 
