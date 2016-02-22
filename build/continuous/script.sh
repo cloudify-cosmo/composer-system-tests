@@ -19,6 +19,7 @@ nvm install 0.10.35 # keep this in older version deliberately.
 echo "GIT_REFERENCE is ${GIT_REFERENCE}"
 chmod 600 ${CONFIG_FILE}
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.GIT_REFERENCE=\"${GIT_REFERENCE}\""
+json -I -f ${CONFIG_FILE} -e "this.environmentVariables.TEST_TYPE=\"${TEST_TYPE}\""
 
 
 ls -ll ${CONFIG_FILE}
