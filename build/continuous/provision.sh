@@ -81,7 +81,7 @@ pushd ${GIT_DEST}
 
 
     export PROTRACTOR_BASE_URL="http://localhost:3000"
-    grunt ${TEST_TYPE} -v
+    grunt ${TEST_TYPE}
 
 #    export S3_FOLDER="`get-unstable-s3-folder`"
 #    echo "running install_prereq"
