@@ -20,6 +20,7 @@ echo "GIT_REFERENCE is ${GIT_REFERENCE}"
 chmod 600 ${CONFIG_FILE}
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.GIT_REFERENCE=\"${GIT_REFERENCE}\""
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.TEST_TYPE=\"${TEST_TYPE}\""
+json -I -f ${CONFIG_FILE} -e "this.environmentVariables.BROWSER_TYPE=\"${BROWSER_TYPE}\""
 
 
 ls -ll ${CONFIG_FILE}
