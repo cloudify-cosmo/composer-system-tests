@@ -1,41 +1,50 @@
 // in case of new env and missing: /node_modules/protractor/selenium/chromedriver.exe run:
 // node_modules/protractor/bin/webdriver-manager update
 
-var timeout = 60000;
+var capabilities = {
+    'browserName': 'chrome',
+    'chromeOptions': {
+        args: ['--no-sandbox', '--test-type=browser', '--disable-extensions'],
+        prefs: {
+            'download': {
+                'prompt_for_download': false,
+                'default_directory': './e2e/tmp'
+            }
+        }
+    }
+};
 
-var spec= process.env.COMPOSER_SPEC || 'spec/**/*_spec.js';
+var timeout = parseInt(process.env.TIMEOUT || "600000",10);
 
+if ( !!process.env.BROWSER_TYPE ) {
+    if ( process.env.BROWSER_TYPE.toLowerCase() === 'phantomjs') {
+        capabilities = {
+            'browserName': 'phantomjs',
+            'platform': 'ANY',
+            'version': '',
+            //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
+            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false'/*, '--remote-debugger-port=9090'*/]
+        }
+    }
+}
+
+var baseUrl = process.env.PROTRACTOR_BASE_URL || 'http://localhost:9000';
+console.log('base url is', baseUrl);
 
 function get_suite(file){
-    return [ 'spec/normalize.js', file+'spec.js'];
+    var result =  [ 'spec/normalize.js', 'spec/' + file+'.spec.js'];
+    console.log('suite is',result);
+    return result;
 }
 
 // An example configuration file.
 exports.config = {
-    directConnect: true,
     seleniumAddress: 'http://localhost:4444/wd/hub',
-
-    //chromeOnly: true,
     //  chromeDriver: '../node_modules/protractor/npm run update-webdriver',
 
 
     // Capabilities to be passed to the webdriver instance.
-    capabilities: {
-        'browserName': 'chrome',
-
-        'chromeOptions': {
-            // Get rid of --ignore-certificate yellow warning
-            args: ['--no-sandbox', '--test-type=browser', '--disable-extensions'],
-            // Set download path and avoid prompting for download even though
-            // this is already the default on Chrome but for completeness
-            prefs: {
-                'download': {
-                    'prompt_for_download': false,
-                    'default_directory': './e2e/tmp'
-                }
-            }
-        }
-    },
+    capabilities: capabilities,
 
     // Framework to use. Jasmine 2 is recommended.
     framework: 'jasmine2',
@@ -50,9 +59,11 @@ exports.config = {
         'plugins' : get_suite('definitions/plugins'),
         'resources' : get_suite('resources/resources'),
         'downloadBlueprint' : get_suite('source/downloadBlueprint'),
-        'nodeTypes' : get_suite('stencils/nodeTypes')
+        'nodeTypes' : get_suite('stencils/nodeTypes'),
+        'buildNodecellar' : get_suite('demos/buildNodecellar')
     },
-    baseUrl: process.env.PROTRACTOR_BASE_URL || 'http://localhost:9000',
+    baseUrl: baseUrl,
+
 
     // Options to be passed to Jasmine.
     jasmineNodeOpts: {
