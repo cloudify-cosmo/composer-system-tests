@@ -16,7 +16,7 @@ echo "installing node"
 nvm install 0.10.35 # keep this in older version deliberately.
 
 `which json` || npm install -g json
-echo "GIT_REFERENCE is GIT_REFERENCE"
+echo "GIT_REFERENCE is ${GIT_REFERENCE}"
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.GIT_REFERENCE=\"${GIT_REFERENCE}\""
 
 
