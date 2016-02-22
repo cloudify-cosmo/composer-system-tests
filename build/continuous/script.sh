@@ -26,7 +26,7 @@ ls -ll ${CONFIG_FILE}
 # replace json file placeholders with environment variables. https://github.com/guy-mograbi-at-gigaspaces/node-replace-env-in-json-file
 curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
 
-chmod 600  $PEM_FILE
+chmod 600  ${PEM_FILE}
 
 npm install cloudify-cosmo/vagrant-automation-machines -g
 
