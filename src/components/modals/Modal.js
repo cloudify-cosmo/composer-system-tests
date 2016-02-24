@@ -3,24 +3,34 @@
 
 
 exports.enterName = function(newName){
+
     var nameInput = by.model('item.name');
+
     element( nameInput ).sendKeys(newName + '\n');
 
 };
 
-exports.enterUrl = function(url){
-    var nameInput = by.model('item.url');
+exports.enterUrl = function(url, type){
+    var nameInput;
+    if(type ==='imports'){
+        nameInput = by.model('item.location');
+    }else{
+        nameInput = by.model('item.url');
+    }
     element( nameInput ).sendKeys(url + '\n');
 
 };
 
 exports.save = function(){
-    return $('[ng-click="save($files)"]').click();
+    return $$('[ng-click="save($files)"]').click();
 };
 
 
 exports.cancel = function(){
     return $('[ng-click="cancel()"]').click();
+};
+exports.cancelUsingSelector = function(){
+    return element(by.css('.modal.fade.in .cancel')).click();
 };
 
 

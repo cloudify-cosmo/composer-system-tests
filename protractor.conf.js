@@ -61,6 +61,7 @@ exports.config = {
         'inputsOutputs' : get_suite('inputsOutputs/inputsOutputs'),
         'downloadBlueprint' : get_suite('source/downloadBlueprint'),
         'nodeTypes' : get_suite('stencils/nodeTypes'),
+        'imports' : get_suite('imports/imports'),
         'buildNodecellar' : get_suite('demos/buildNodecellar')
     },
     baseUrl: baseUrl,

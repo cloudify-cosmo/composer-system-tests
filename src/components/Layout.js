@@ -6,6 +6,7 @@ exports.PAGES = {
     INPUTS_OUTPUTS: 'inputs & outputs',
     DEFINITIONS: 'definitions',
     RESOURCES: 'resources',
+    IMPORTS: 'imports',
     SOURCE: 'source'
 };
 
@@ -25,6 +26,9 @@ exports.goToDefinitions = function(){
  exports.goToResources = function(){
     exports.goTo( exports.PAGES.RESOURCES );
 };
+exports.goToImports = function(){
+    exports.goTo( exports.PAGES.IMPORTS );
+};
 
 
 
@@ -41,4 +45,9 @@ exports.goTo = function( page ){
         //console.log('found items', results.length);
        return results;
     });
+};
+
+exports.dragAndDrop = function(dragItem, dragDest){
+    dragItem.click();
+    browser.actions().dragAndDrop(dragItem, dragDest).perform();
 };
