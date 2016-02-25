@@ -39,7 +39,7 @@ exports.goTo = function( page ){
             var result = text.toLowerCase().trim() === page.toLowerCase().trim();
             //console.log('looking for page',text, page, result );
             return result;
-        })
+        });
     }).then(function(results){
         results[0].click();
         //console.log('found items', results.length);
@@ -50,4 +50,8 @@ exports.goTo = function( page ){
 exports.dragAndDrop = function(dragItem, dragDest){
     dragItem.click();
     browser.actions().dragAndDrop(dragItem, dragDest).perform();
+};
+
+exports.saveBlueprint = function(){
+    return $('[ng-click="saveOrUpdateBlueprint()"]').click();
 };

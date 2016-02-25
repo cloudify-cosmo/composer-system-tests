@@ -98,5 +98,35 @@ describe('imports section', function() {
             browser.sleep(3000).then(done);
         });
     });
+    describe('Save imports', function() {
+        it('should add and save imports', function(done){
+            components.imports.page.openAddImportsDialog();
+            components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml', 'imports');
+            components.modals.modal.save();
+
+            components.layout.saveBlueprint(); //click save blueprint button
+            browser.sleep(200);
+            browser.refresh();
+
+            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(10);
+
+            browser.sleep(1000).then(done);
+
+        });
+        it('should add and delete imports', function(done){
+
+            components.imports.page.openImportsDeletePopover(); //click delete icon
+            components.popovers.popover.clickYes();//click no btn
+
+            components.layout.saveBlueprint(); //click save blueprint button
+            browser.sleep(200);
+            browser.refresh();
+
+            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);
+
+            browser.sleep(1000).then(done);
+
+        });
+    });
 
 });
