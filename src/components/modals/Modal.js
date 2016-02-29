@@ -30,7 +30,8 @@ exports.cancel = function(){
     return $('[ng-click="cancel()"]').click();
 };
 exports.cancelUsingSelector = function(){
-    return element(by.css('.modal.fade.in .cancel')).click();
+    element(by.css('.modal.fade.in .cancel')).click();
+    return browser.sleep(500); //waiting when modal close
 };
 
 

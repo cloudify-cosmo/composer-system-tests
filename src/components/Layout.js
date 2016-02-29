@@ -53,5 +53,6 @@ exports.dragAndDrop = function(dragItem, dragDest){
 };
 
 exports.saveBlueprint = function(){
-    return $('[ng-click="saveOrUpdateBlueprint()"]').click();
+    $('[ng-click="saveOrUpdateBlueprint()"]').click();
+    return browser.sleep(200);
 };

@@ -17,7 +17,8 @@ exports.countElements = function(el){
     });
 };
 exports.openImportsViewDialog = function(){
-    return element.all(by.css('.icon-view')).get(0).click();
+    element.all(by.css('.icon-view')).get(0).click();
+    return browser.sleep(500);//waiting when modal appears
 };
 
 exports.openImportsDeletePopover = function(){

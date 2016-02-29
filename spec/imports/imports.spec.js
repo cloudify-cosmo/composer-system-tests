@@ -22,11 +22,9 @@ describe('imports section', function() {
         });
         it('should open then close import modal view', function(done) {
             components.imports.page.openImportsViewDialog();//click show modal with import data btn
-            browser.sleep(500);//waiting when modal appears
             expect(components.imports.page.isElementDisplayed(element(by.css('.modal.fade.in')))).toBe(true);//modal should appear
 
             components.modals.modal.cancelUsingSelector();//click cancel btn
-            browser.sleep(500); //waiting when modal close
             expect(components.imports.page.isElementPresent(element(by.css('.modal.fade.in')))).toBe(false);//modal should disappear
 
             browser.sleep(200).then(done);
@@ -35,13 +33,10 @@ describe('imports section', function() {
         it('check imports delete', function(done) {
             components.imports.page.openImportsDeletePopover(); //click delete icon
             components.popovers.popover.clickNo();//click no btn
-
             expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);//number of imports should not change
-
 
             components.imports.page.openImportsDeletePopover();//click delete icon
             components.popovers.popover.clickYes();//click yes btn
-
             expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(8);//minus one import
 
             browser.sleep(200).then(done);
@@ -95,7 +90,7 @@ describe('imports section', function() {
             expect(components.imports.page.isElementPresent(components.imports.page.findSpecificUsedOnImportsPage())).toBe(false);
 
 
-            browser.sleep(3000).then(done);
+            browser.sleep(200).then(done);
         });
     });
     describe('Save imports', function() {
@@ -105,12 +100,11 @@ describe('imports section', function() {
             components.modals.modal.save();
 
             components.layout.saveBlueprint(); //click save blueprint button
-            browser.sleep(200);
             browser.refresh();
 
             expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(10);
 
-            browser.sleep(1000).then(done);
+            browser.sleep(200).then(done);
 
         });
         it('should add and delete imports', function(done){
