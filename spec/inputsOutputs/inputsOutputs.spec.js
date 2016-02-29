@@ -4,6 +4,9 @@ var logger = require('log4js').getLogger('Resources-e2e');
 var _ = require('lodash');
 var components = require('../../src/components');
 
+var inputElement = element(by.css('.blueprint-inputs'));
+var outputElement = element(by.css('.blueprint-outputs'));
+
 describe('inputsOutputs page', function() {
 
   describe('login',function() {
@@ -15,24 +18,10 @@ describe('inputsOutputs page', function() {
     components.layout.goToInputsOutputs();
   });
 
-  var inputElement = element(by.css('.blueprint-inputs'));
-  var outputElement = element(by.css('.blueprint-outputs'));
-
-  var saveInlineTypeElement = element(by.css('.btn-primary'));
-  var addNewTypeElement = element.all(by.css('.add-block')).get(0);
-  var addPropertyElement = element(by.css('.properties-block')).all(by.css('.add-block')).get(0);
-  var propertyItemElement = element(by.css('.properties-block')).all(by.css('.item-block')).get(0);
-  var typeNameElement = element(by.model('configData.type'));
-  var propertyDescriptionElement = element(by.css('.properties-block')).element(by.css('.tt-input'));
-
-  var dragItem = element.all(by.css('.stencilContainer')).get(0);
-  var dragDest = element(by.id('topologyContainer'));
-  var nodeElement = components.topology.page.searchElementInRepeat(element(by.id('propertiesData')), '(prop, propValue) in data.selectedNode.infoData.properties');
 
   describe('add input and output', function() {
 
     it('should not add input with empty name', function(done) {
-
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//new field should not be added
       browser.sleep(200).then(done);
@@ -52,7 +41,7 @@ describe('inputsOutputs page', function() {
 
       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
 
     });
 
@@ -61,7 +50,7 @@ describe('inputsOutputs page', function() {
 
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
 
     });
 
@@ -71,7 +60,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//new field should not be added
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
 
     });
 
@@ -82,7 +71,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//new field should not be added
       browser.refresh();
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
 
     });
   });
@@ -94,7 +83,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
 
     });
 
@@ -104,7 +93,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
 
     });
 
@@ -117,23 +106,28 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.renameOutputValue(outputElement);// change the output value as at input name
 
       components.layout.goToTopology();
+
+
+      var dragItem = element.all(by.css('.stencilContainer')).get(0);
+      var dragDest = element(by.id('topologyContainer'));
+
       components.topology.page.dragAndDrop(dragItem, dragDest);
-      components.layout.clickElement(element(by.css('.nodeContainer')));
-      nodeElement.get(0).element(by.css('.tt-input')).sendKeys('{ "get_input" : "name"}');
+      components.topology.page.openNode();
+      components.topology.page.setPropertyValue();
 
       browser.sleep(200);
 
       components.layout.goToDefinitions();
-      components.layout.clickElement(addNewTypeElement);//click new type button
-      components.layout.clickElement(addPropertyElement);//add new property fields
+      components.definitions.page.addNewTypeElement();//click new type button
+      components.definitions.page.addPropertyElement();//add new property fields
+      components.definitions.page.setInlineTypeName();//set inline type name
 
-      typeNameElement.sendKeys('name');//set inline type name
-      components.layout.clickElement(propertyItemElement);//click on field to show hidden inputs
+      components.definitions.page.showHiddenInputs();//click on field to show hidden inputs
 
-      propertyDescriptionElement.sendKeys('{ "get_input" : "name"}');// set description value
-      components.layout.clickElement(saveInlineTypeElement);//save inline type
+      components.definitions.page.setDescriptionValue();
+      components.definitions.page.saveInlineTypeElement();//save inline type
 
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
     });
 
     it('should not remove input name in outputs value, node property and inlineTypes property field', function(done) {
@@ -147,16 +141,22 @@ describe('inputsOutputs page', function() {
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
-      components.layout.clickElement(element(by.css('.nodeContainer')));
-      expect(nodeElement.get(0).element(by.css('.tt-input')).getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
+      components.topology.page.openNode();
+
+      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
 
       browser.sleep(200);
 
       components.layout.goToDefinitions();
-      components.layout.clickElement(element(by.css('.icon-edit')));//click edit button
-      expect(propertyDescriptionElement.getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
 
-      browser.sleep(1000).then(done);
+      components.definitions.page.clickEditButton();//click edit button
+
+      components.definitions.page.getPropertyDescription();//click edit button
+      expect(components.definitions.page.getPropertyDescription()).toBe('{ "get_input" : "name"}');//text should exist
+
+      //expect(propertyDescriptionElement.getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
+
+      browser.sleep(200).then(done);
     });
 
     it('should remove input name in outputs value node property and inlineTypes property field', function(done) {
@@ -174,14 +174,14 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
 
       components.layout.goToTopology();
-      components.layout.clickElement(element(by.css('.nodeContainer')));
-      expect(nodeElement.get(0).element(by.css('.tt-input')).getAttribute('value')).toBe('');//text shouldn't exist
+      components.topology.page.openNode();
+      expect(components.topology.page.getPropertyValue()).toBe('');//text shouldn't exist
 
       components.layout.goToDefinitions();
-      components.layout.clickElement(element(by.css('.icon-edit'))); //click edit button
-      expect(propertyDescriptionElement.getAttribute('value')).toBe('');//text shouldn't exist
+      components.definitions.page.clickEditButton();//click edit button
+      expect(components.definitions.page.getPropertyDescription()).toBe('');//text shouldn't exist
 
-      browser.sleep(1000).then(done);
+      browser.sleep(200).then(done);
     });
   });
 
@@ -194,14 +194,13 @@ describe('inputsOutputs page', function() {
        components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
        components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
 
-       components.layout.clickElement($('[ng-click="saveOrUpdateBlueprint()"]')); //click save blueprint button
-       browser.sleep(500).then(done);
+       components.topology.page.saveBlueprint();//click save blueprint button
 
        browser.refresh();
        expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//input should exist
        expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//output should exist
 
-       browser.sleep(1000).then(done);
+       browser.sleep(200).then(done);
 
      })
   });

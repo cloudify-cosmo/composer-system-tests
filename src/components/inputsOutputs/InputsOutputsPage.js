@@ -68,3 +68,5 @@ exports.popoverDeleteConfirm = function(el, status){
   }
 };
 
+
+

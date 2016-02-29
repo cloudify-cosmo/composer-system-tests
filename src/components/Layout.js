@@ -42,8 +42,3 @@ exports.goTo = function( page ){
        return results;
     });
 };
-
-
-exports.clickElement = function(el){
-    el.click();
-};
