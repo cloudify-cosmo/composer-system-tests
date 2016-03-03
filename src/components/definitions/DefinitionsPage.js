@@ -86,7 +86,48 @@ exports.getPropertyDescription = function(){
     return element(by.css('.properties-block')).element(by.css('.tt-input')).getAttribute('value');
 };
 
+
 exports.clickEnterBtn = function(){
     browser.sleep(400);
     return browser.actions().sendKeys(protractor.Key.ENTER).perform();
+};
+
+exports.pushNewTypeBtn = function(){
+    return element(by.cssContainingText('.display-name', 'New type')).click();
+};
+
+exports.pushNewRelationshipBtn = function(){
+    return element(by.cssContainingText('.display-name', 'New relationship')).click();
+};
+
+exports.pushEditInlineTypeBtn = function(){
+    return element.all(by.css('.icon-edit')).get(0).click();
+};
+
+exports.countInlineTypes = function(){
+  return element.all(by.repeater('inlineType in globals.definitions.inlineTypes')).count();
+};
+
+exports.countRelationships = function(){
+  return element.all(by.repeater('relationship in globals.definitions.relationships')).count();
+};
+
+exports.deleteInlineTypes = function(){
+    element.all(by.repeater('inlineType in globals.definitions.inlineTypes')).get(0).all(by.css('.icon-delete')).get(0).click();
+    browser.sleep(200);
+    element(by.css('.popover .okBtn')).click();
+};
+
+exports.deleteRelationshipTypes = function(){
+    element.all(by.repeater('relationship in globals.definitions.relationships')).get(0).all(by.css('.icon-delete')).get(0).click();
+    browser.sleep(200);
+    element(by.css('.popover .okBtn')).click();
+};
+
+exports.clickDeleteRelationshipBtn = function(){
+    element.all(by.repeater('relationship in globals.definitions.relationships')).get(0).all(by.css('.icon-delete')).get(0).click();
+};
+
+exports.clickDeleteInlineTypesBtn = function(){
+    element.all(by.repeater('inlineType in globals.definitions.inlineTypes')).get(0).all(by.css('.icon-delete')).get(0).click();
 };
