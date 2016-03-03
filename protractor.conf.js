@@ -62,7 +62,10 @@ exports.config = {
         'downloadBlueprint' : get_suite('source/downloadBlueprint'),
         'nodeTypes' : get_suite('stencils/nodeTypes'),
         'imports' : get_suite('imports/imports'),
-        'buildNodecellar' : get_suite('demos/buildNodecellar')
+        'buildNodecellar' : get_suite('demos/buildNodecellar'),
+        'inlineTypes' : get_suite('definitions/inlineTypes'),
+        'relationships' : get_suite('definitions/relationships')
+
     },
     baseUrl: baseUrl,
 

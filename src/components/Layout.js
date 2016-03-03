@@ -56,3 +56,15 @@ exports.saveBlueprint = function(){
     $('[ng-click="saveOrUpdateBlueprint()"]').click();
     return browser.sleep(200);
 };
+
+exports.isElementDisplayed = function(el){
+  return el.isDisplayed().then(function(result) {
+    return result
+  });
+};
+
+exports.isElementPresent = function(el){
+  return el.isPresent().then(function(result) {
+    return result
+  });
+};
