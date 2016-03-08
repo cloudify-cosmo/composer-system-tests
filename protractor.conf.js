@@ -58,6 +58,7 @@ exports.config = {
     suites: {
         'plugins' : get_suite('definitions/plugins'),
         'resources' : get_suite('resources/resources'),
+        'inputsOutputs' : get_suite('inputsOutputs/inputsOutputs'),
         'downloadBlueprint' : get_suite('source/downloadBlueprint'),
         'nodeTypes' : get_suite('stencils/nodeTypes'),
         'buildNodecellar' : get_suite('demos/buildNodecellar')

@@ -57,3 +57,35 @@ exports.override = function(){
     return $('[ng-click="overridePlugin($files)"]').click();
 };
 
+exports.addNewTypeElement = function(){
+    return element.all(by.css('.add-block')).get(0).click();
+};
+
+exports.addPropertyElement = function(){
+    return element(by.css('.properties-block')).all(by.css('.add-block')).get(0).click();
+};
+
+exports.showHiddenInputs = function(){
+    return element(by.css('.properties-block')).all(by.css('.item-block')).get(0).click();
+};
+
+exports.setInlineTypeName = function(){
+    return element(by.model('configData.type')).sendKeys('name');
+};
+
+exports.setDescriptionValue = function(){
+    return element(by.css('.properties-block')).element(by.css('.tt-input')).sendKeys('{ "get_input" : "name"}');
+};
+
+exports.saveInlineTypeElement = function(){
+    return element(by.css('.btn-primary')).click();
+};
+
+exports.clickEditButton = function(){
+    return element(by.css('.icon-edit')).click();
+};
+
+exports.getPropertyDescription = function(){
+    return element(by.css('.properties-block')).element(by.css('.tt-input')).getAttribute('value');
+};
+
