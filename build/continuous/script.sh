@@ -15,12 +15,15 @@ echo "user is $USER";
 echo "installing node"
 nvm install 0.10.35 # keep this in older version deliberately.
 
-which json || npm install -g json
+# which json || npm install -g json
 echo "GIT_REFERENCE is ${GIT_REFERENCE}"
 chmod 600 ${CONFIG_FILE}
-json -I -f ${CONFIG_FILE} -e "this.environmentVariables.GIT_REFERENCE=\"${GIT_REFERENCE}\""
-json -I -f ${CONFIG_FILE} -e "this.environmentVariables.TEST_TYPE=\"${TEST_TYPE}\""
-json -I -f ${CONFIG_FILE} -e "this.environmentVariables.BROWSER_TYPE=\"${BROWSER_TYPE}\""
+
+npm install json
+export JSON_BIN="./node_modules/json/lib/json.js"
+$JSON_BIN -I -f ${CONFIG_FILE} -e "this.environmentVariables.GIT_REFERENCE=\"${GIT_REFERENCE}\""
+$JSON_BIN -I -f ${CONFIG_FILE} -e "this.environmentVariables.TEST_TYPE=\"${TEST_TYPE}\""
+$JSON_BIN -I -f ${CONFIG_FILE} -e "this.environmentVariables.BROWSER_TYPE=\"${BROWSER_TYPE}\""
 
 
 ls -ll ${CONFIG_FILE}
@@ -31,7 +34,9 @@ curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
 chmod 600  ${PEM_FILE}
 
 
-which vagrant-automation-machines-copy || npm install cloudify-cosmo/vagrant-automation-machines -g
+npm install vagrant-automation-machines
+export VAGRANT_AUTOMATION_MACHINE_SETUP="./node_modules/vagrant-automation-machines/index.js"
+#which vagrant-automation-machines-copy || npm install cloudify-cosmo/vagrant-automation-machines -g
 
 function cleanup(){
     pushd ${VAGRANT_WORKDIR}
@@ -42,7 +47,8 @@ function cleanup(){
 trap cleanup EXIT
 
 pushd ${VAGRANT_BASEDIR}
-    vagrant-automation-machines-setup aws
+    $VAGRANT_AUTOMATION_MACHINE_SETUP aws
+#    vagrant-automation-machines-setup aws
     cleanup || echo "no need to teardown the machine because it was not running"
     pushd ${VAGRANT_WORKDIR}
         vagrant up --provider=aws

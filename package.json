@@ -17,10 +17,12 @@
     "selenium-webdriver": "~2.44.0"
   },
   "devDependencies": {
+    "eyes.protractor": "0.0.38",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-mocha-test": "^0.12.7",
     "jasmine-reporters": "~1.0.2",
-    "eyes.protractor": "0.0.38"
+    "json": "*",
+    "vagrant-automation-machines": "cloudify-cosmo/vagrant-automation-machines"
   },
   "scripts": {
     "install": "node ./node_modules/protractor/bin/webdriver-manager update"
