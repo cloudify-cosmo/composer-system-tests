@@ -1,10 +1,7 @@
-/**
- * Created by liron on 9/6/15.
- */
 'use strict';
-var fs = require('fs-extra');
+//var fs = require('fs-extra');
 var logger = require('log4js').getLogger('Plugins-e2e');
-var _ = require('lodash');
+//var _ = require('lodash');
 var components = require('../../src/components');
 
 describe('plugins section', function() {
@@ -29,7 +26,7 @@ describe('plugins section', function() {
 
             browser.sleep(1000);
 
-            $$('.definition-block').filter((elem, index)=>{
+            $$('.definition-block').filter((elem)=>{
                 return elem.getText().then((text)=>{
                     console.log('plugin name is: ' + text);
             if(text==='chef'){
@@ -37,7 +34,7 @@ describe('plugins section', function() {
 
             }
             return text === 'Name';
-        })
+        });
     });
 
 
@@ -52,56 +49,56 @@ describe('plugins section', function() {
 
 //components.resources.uploadFile.uploadFile('foo');
 
-xdescribe('add by url - override', function() {
-    it('should add the plugin twice using same url and name ', function(done) {
-
-        components.definitions.page.openUploadPluginDialog();
-
-        components.modals.modal.enterName('tested-plugin');
-        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
-        components.modals.modal.cancel();
-
-        browser.sleep(1000);
-
-        components.definitions.page.openUploadPluginDialog();
-
-        components.modals.modal.enterName('tested-plugin');
-        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
-        components.modals.modal.save();
-
-        browser.sleep(5000);
-
-        // cause override btn to appear
-        components.definitions.page.openUploadPluginDialog();
-
-        components.modals.modal.enterName('tested-plugin');
-        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
-        components.modals.modal.save();
-
-        browser.sleep(1000);
-        // choose to override
-        components.definitions.page.override();
-
-        browser.sleep(1000).then(done);
-
-
-    });
-});
-
-
-xdescribe('add by file ', function() {
-    it('should add file', function(done) {
-        components.definitions.page.openUploadPluginDialog();
-
-        components.modals.modal.enterName('tested-pluginByFile');
-
-        browser.pause();
-        components.resources.uploadFile.uploadFile('foo');
-        browser.sleep(3000).then(done);
+//xdescribe('add by url - override', function() {
+//    it('should add the plugin twice using same url and name ', function(done) {
+//
+//        components.definitions.page.openUploadPluginDialog();
+//
+//        components.modals.modal.enterName('tested-plugin');
+//        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+//        components.modals.modal.cancel();
+//
+//        browser.sleep(1000);
+//
+//        components.definitions.page.openUploadPluginDialog();
+//
+//        components.modals.modal.enterName('tested-plugin');
+//        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+//        components.modals.modal.save();
+//
+//        browser.sleep(5000);
+//
+//        // cause override btn to appear
+//        components.definitions.page.openUploadPluginDialog();
+//
+//        components.modals.modal.enterName('tested-plugin');
+//        components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
+//        components.modals.modal.save();
+//
+//        browser.sleep(1000);
+//        // choose to override
+//        components.definitions.page.override();
+//
+//        browser.sleep(1000).then(done);
+//
+//
+//    });
+//});
 
 
-    });
-});
+//xdescribe('add by file ', function() {
+//    it('should add file', function(done) {
+//        components.definitions.page.openUploadPluginDialog();
+//
+//        components.modals.modal.enterName('tested-pluginByFile');
+//
+//        browser.pause();
+//        components.resources.uploadFile.uploadFile('foo');
+//        browser.sleep(3000).then(done);
+//
+//
+//    });
+//});
 
 
 //describe('override uploaded yaml file ', function() {

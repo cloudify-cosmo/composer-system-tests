@@ -1,7 +1,7 @@
 'use strict';
-var fs = require('fs-extra');
+//var fs = require('fs-extra');
 var logger = require('log4js').getLogger('Plugins-e2e');
-var _ = require('lodash');
+//var _ = require('lodash');
 var components = require('../../src/components');
 
 describe('imports section', function() {

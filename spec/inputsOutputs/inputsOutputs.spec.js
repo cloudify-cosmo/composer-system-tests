@@ -1,7 +1,4 @@
 'use strict';
-var fs = require('fs-extra');
-var logger = require('log4js').getLogger('Resources-e2e');
-var _ = require('lodash');
 var components = require('../../src/components');
 
 var inputElement = element(by.css('.blueprint-inputs'));
@@ -202,6 +199,6 @@ describe('inputsOutputs page', function() {
 
        browser.sleep(200).then(done);
 
-     })
+     });
   });
 });

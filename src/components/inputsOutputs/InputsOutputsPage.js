@@ -35,7 +35,7 @@ exports.setInputOrOutputFields = function(el, type){
 
 exports.renameOutputValue = function(el){
    el.all(by.repeater('(key,field) in data')).then(function(result){
-     result[0].element(by.css('.tt-input')).clear().sendKeys('name')
+     result[0].element(by.css('.tt-input')).clear().sendKeys('name');
   });
 };
 
@@ -51,12 +51,12 @@ exports.countInputsOrOutputs = function(el){
 
 exports.isElementDisplayed = function(el){
   return el.isDisplayed().then(function(result) {
-    return result
+    return result;
   });
 };
 exports.isElementPresent = function(el){
   return el.isPresent().then(function(result) {
-    return result
+    return result;
   });
 };
 
