@@ -2,6 +2,7 @@
 //var fs = require('fs-extra');
 //var logger = require('log4js').getLogger('Download-e2e');
 //var exec = require('child_process').exec;
+////var rootPwd = shell.pwd();
 //var path = rootPwd+'/e2e/tmp';
 //var filename =  rootPwd+'/e2e/tmp/blueprint.tar.gz';
 //var _ = require('lodash');

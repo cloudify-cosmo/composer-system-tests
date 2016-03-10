@@ -1,6 +1,3 @@
-/**
- * Created by liron on 1/21/16.
- */
 'use strict';
 
 // opens 'the add new plugin' modal

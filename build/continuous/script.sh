@@ -15,7 +15,7 @@ echo "user is $USER";
 echo "installing node"
 nvm install 0.10.35 # keep this in older version deliberately.
 
-`which json` || npm install -g json
+which json || npm install -g json
 echo "GIT_REFERENCE is ${GIT_REFERENCE}"
 chmod 600 ${CONFIG_FILE}
 json -I -f ${CONFIG_FILE} -e "this.environmentVariables.GIT_REFERENCE=\"${GIT_REFERENCE}\""
@@ -30,7 +30,8 @@ curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
 
 chmod 600  ${PEM_FILE}
 
-npm install cloudify-cosmo/vagrant-automation-machines -g
+
+which vagrant-automation-machines-copy || npm install cloudify-cosmo/vagrant-automation-machines -g
 
 function cleanup(){
     pushd ${VAGRANT_WORKDIR}
