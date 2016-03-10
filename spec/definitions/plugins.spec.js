@@ -3,13 +3,13 @@
  */
 'use strict';
 var fs = require('fs-extra');
-var logger = require('log4js').getLogger('Plugins-e2e');
+var logger = browser.getLogger('plugins.spec');
 var _ = require('lodash');
 var components = require('../../src/components');
 
 describe('plugins section', function() {
-
     beforeEach(function() {
+        logger.info('loading page');
         browser.get('/');
 
         components.login.login('user-' + new Date().getTime());
