@@ -1,2 +1,5 @@
 .idea
 node_modules
+build/continuous/aws
+build/continuous/util
+dev

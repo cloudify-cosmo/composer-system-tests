@@ -1,6 +1,3 @@
-/**
- * Created by liron on 9/6/15.
- */
 'use strict';
 var fs = require('fs-extra');
 var logger = require('log4js').getLogger('Download-e2e');
