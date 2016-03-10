@@ -1,10 +1,5 @@
-/**
- * Created by liron on 9/6/15.
- */
 'use strict';
-var fs = require('fs-extra');
 var logger = require('log4js').getLogger('NodeTypes-e2e');
-var _ = require('lodash');
 var components = require('../../src/components');
 
 describe('plugins section', function() {
