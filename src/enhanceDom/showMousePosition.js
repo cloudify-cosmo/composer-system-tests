@@ -1,3 +1,5 @@
+'use strict';
+
 exports.showMousePosition = function show() {
     // add jquery to the mix
 
@@ -37,7 +39,7 @@ exports.showMousePosition = function show() {
 
         setTimeout(function () {
             dotEl.remove();
-        }, 1000)
+        }, 1000);
 
     }
 

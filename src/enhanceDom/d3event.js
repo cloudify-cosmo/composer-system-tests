@@ -1,3 +1,9 @@
+'use strict';
+
+
+// ignore globals since this code runs on the frontend
+/* jshint undef: false*/
+
 /**
  * adds a click event dispatcher for d3
  *
@@ -9,7 +15,7 @@
 exports.d3Click = function() {
     $.fn.d3Click = function () {
         this.each(function (i, e) {
-            var evt = new MouseEvent("click");
+            var evt = new MouseEvent('click');
             e.dispatchEvent(evt);
         });
     };

@@ -1,3 +1,8 @@
+'use strict';
+
+// ignore globals since this code runs on frontend
+/* jshint undef: false */
+
 var fs = require('fs');
 var path = require('path');
 exports.execute = function inject(){
@@ -22,7 +27,7 @@ exports.composer = function () {
             return { rightConnector: node.find('.rightConnector'), leftConnector: node.find('.leftConnector') };
         },
         connectNodes: function( fromName, toName ){
-            var fromNode = $.composer.getNode(fromName);
+            //var fromNode = $.composer.getNode(fromName);
             var toNode = $.composer.getNode(toName);
 
             //var toCorner = toNode.findCorner();
@@ -45,7 +50,7 @@ exports.composer = function () {
         },
         addNode: function (name, position) {
             var el = _.find($('.stencilContainer'), function (e) {
-                return $(e).text().indexOf(name) >= 0
+                return $(e).text().indexOf(name) >= 0;
             });
             if (!!el) {
                 $(el).simulate('mousedown');
@@ -59,7 +64,7 @@ exports.composer = function () {
             }
         }
 
-    }
+    };
 };
 
 exports.connectNodes = function( fromName, toName ){

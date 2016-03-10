@@ -1,3 +1,5 @@
+'use strict';
+
 /*!
  *
  * NOTE: modified by us..
@@ -27,7 +29,7 @@ exports.simulate = function () {
     };
 
     $.simulate = function (elem, type, options) {
-        var method = $.camelCase("simulate-" + type);
+        var method = $.camelCase('simulate-' + type);
 
         this.target = elem;
         this.options = options;
@@ -94,7 +96,7 @@ exports.simulate = function () {
             var event, eventDoc, doc, body;
             options = $.extend({
                 bubbles: true,
-                cancelable: (type !== "mousemove"),
+                cancelable: (type !== 'mousemove'),
                 view: window,
                 detail: 0,
                 screenX: 0,
@@ -110,7 +112,7 @@ exports.simulate = function () {
             }, options);
 
             if (document.createEvent) {
-                event = document.createEvent("MouseEvents");
+                event = document.createEvent('MouseEvents');
                 event.initMouseEvent(type, options.bubbles, options.cancelable,
                     options.view, options.detail,
                     options.screenX, options.screenY, options.clientX, options.clientY,
@@ -125,14 +127,14 @@ exports.simulate = function () {
                     doc = eventDoc.documentElement;
                     body = eventDoc.body;
 
-                    Object.defineProperty(event, "pageX", {
+                    Object.defineProperty(event, 'pageX', {
                         get: function () {
                             return options.clientX +
                                 ( doc && doc.scrollLeft || body && body.scrollLeft || 0 ) -
                                 ( doc && doc.clientLeft || body && body.clientLeft || 0 );
                         }
                     });
-                    Object.defineProperty(event, "pageY", {
+                    Object.defineProperty(event, 'pageY', {
                         get: function () {
                             return options.clientY +
                                 ( doc && doc.scrollTop || body && body.scrollTop || 0 ) -
@@ -172,7 +174,7 @@ exports.simulate = function () {
 
             if (document.createEvent) {
                 try {
-                    event = document.createEvent("KeyEvents");
+                    event = document.createEvent('KeyEvents');
                     event.initKeyEvent(type, options.bubbles, options.cancelable, options.view,
                         options.ctrlKey, options.altKey, options.shiftKey, options.metaKey,
                         options.keyCode, options.charCode);
@@ -181,7 +183,7 @@ exports.simulate = function () {
                     // and also https://bugs.webkit.org/show_bug.cgi?id=13368
                     // fall back to a generic event until we decide to implement initKeyboardEvent
                 } catch (err) {
-                    event = document.createEvent("Events");
+                    event = document.createEvent('Events');
                     event.initEvent(type, options.bubbles, options.cancelable);
                     $.extend(event, {
                         view: options.view,
@@ -198,7 +200,7 @@ exports.simulate = function () {
                 $.extend(event, options);
             }
 
-            if (!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()) || (({}).toString.call(window.opera) === "[object Opera]")) {
+            if (!!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()) || (({}).toString.call(window.opera) === '[object Opera]')) {
                 event.keyCode = (options.charCode > 0) ? options.charCode : options.keyCode;
                 event.charCode = undefined;
             }
@@ -212,7 +214,7 @@ exports.simulate = function () {
             } else if (elem.dispatchEvent) {
                 elem.dispatchEvent(event);
             } else if (elem.fireEvent) {
-                elem.fireEvent("on" + type, event);
+                elem.fireEvent('on' + type, event);
             }
         },
 
@@ -225,16 +227,16 @@ exports.simulate = function () {
                 triggered = true;
             }
 
-            element.bind("focus", trigger);
+            element.bind('focus', trigger);
             element[0].focus();
 
             if (!triggered) {
-                focusinEvent = $.Event("focusin");
+                focusinEvent = $.Event('focusin');
                 focusinEvent.preventDefault();
                 element.trigger(focusinEvent);
-                element.triggerHandler("focus");
+                element.triggerHandler('focus');
             }
-            element.unbind("focus", trigger);
+            element.unbind('focus', trigger);
         },
 
         simulateBlur: function () {
@@ -246,7 +248,7 @@ exports.simulate = function () {
                 triggered = true;
             }
 
-            element.bind("blur", trigger);
+            element.bind('blur', trigger);
             element[0].blur();
 
             // blur events are async in IE
@@ -259,12 +261,12 @@ exports.simulate = function () {
                 // Firefox won't trigger events if the window is inactive
                 // IE doesn't trigger events if we had to manually focus the body
                 if (!triggered) {
-                    focusoutEvent = $.Event("focusout");
+                    focusoutEvent = $.Event('focusout');
                     focusoutEvent.preventDefault();
                     element.trigger(focusoutEvent);
-                    element.triggerHandler("blur");
+                    element.triggerHandler('blur');
                 }
-                element.unbind("blur", trigger);
+                element.unbind('blur', trigger);
             }, 1);
         }
     });
@@ -286,7 +288,7 @@ exports.simulate = function () {
 
     $.fn.findCenter = function(){
         if ( this.length > 1 ) {
-            return this.map(function(){ return findCenter(this); })
+            return this.map(function(){ return findCenter(this); });
         } else {
             return findCenter(this[0]);
         }
@@ -306,7 +308,7 @@ exports.simulate = function () {
 
     $.fn.findCorner = function(){
         if ( this.length > 1 ) {
-            return this.map(function(){ return findCorner(this); })
+            return this.map(function(){ return findCorner(this); });
         } else {
             return findCorner(this[0]);
         }
@@ -351,7 +353,7 @@ exports.simulate = function () {
                 target = this.target,
                 eventDoc = target.ownerDocument,
                 options = this.options,
-                center = options.handle === "corner" ? findCorner(target) : findCenter(target),
+                center = options.handle === 'corner' ? findCorner(target) : findCenter(target),
                 x = Math.floor(center.x),
                 y = Math.floor(center.y),
                 coord = {clientX: x, clientY: y},
@@ -359,7 +361,7 @@ exports.simulate = function () {
                 dy = options.dy || ( options.y !== undefined ? options.y - y : 0 ),
                 moves = options.moves || 3;
 
-            this.simulateEvent(target, "mousedown", coord);
+            this.simulateEvent(target, 'mousedown', coord);
 
             for (; i < moves; i++) {
                 x += dx / moves;
@@ -370,14 +372,14 @@ exports.simulate = function () {
                     clientY: Math.round(y)
                 };
 
-                this.simulateEvent(eventDoc, "mousemove", coord);
+                this.simulateEvent(eventDoc, 'mousemove', coord);
             }
 
             if ($.contains(eventDoc, target)) {
-                this.simulateEvent(target, "mouseup", coord);
-                this.simulateEvent(target, "click", coord);
+                this.simulateEvent(target, 'mouseup', coord);
+                this.simulateEvent(target, 'click', coord);
             } else {
-                this.simulateEvent(eventDoc, "mouseup", coord);
+                this.simulateEvent(eventDoc, 'mouseup', coord);
             }
         }
     });
