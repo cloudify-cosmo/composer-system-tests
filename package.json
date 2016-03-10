@@ -20,9 +20,7 @@
     "eyes.protractor": "0.0.38",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-mocha-test": "^0.12.7",
-    "jasmine-reporters": "~1.0.2",
-    "json": "*",
-    "vagrant-automation-machines": "cloudify-cosmo/vagrant-automation-machines"
+    "jasmine-reporters": "~1.0.2"
   },
   "scripts": {
     "install": "node ./node_modules/protractor/bin/webdriver-manager update"
