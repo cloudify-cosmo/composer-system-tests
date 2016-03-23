@@ -1,7 +1,5 @@
 'use strict';
-var fs = require('fs-extra');
-var logger = require('log4js').getLogger('Plugins-e2e');
-var _ = require('lodash');
+
 var components = require('../../src/components');
 
 describe('inlineTypes section', function() {

@@ -42,7 +42,7 @@ exports.pushAddNewInterfaceBtn = function(number){
 };
 
 exports.renameAddNewInterface = function(newName){
-    return element.all(by.model('interface.key')).get(0).clear().sendKeys(newName)
+    return element.all(by.model('interface.key')).get(0).clear().sendKeys(newName);
 };
 
 exports.renameInterface = function(newName){
@@ -65,7 +65,7 @@ exports.countInterfaces = function(){
 };
 
 exports.countInterfaceOperations = function(){
-    var container = element.all(by.css(".interface-config-block")).get(0);
+    var container = element.all(by.css('.interface-config-block')).get(0);
     return container.all(by.repeater('item in interface.data')).count();
 };
 

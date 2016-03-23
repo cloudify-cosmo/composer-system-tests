@@ -59,12 +59,12 @@ exports.saveBlueprint = function(){
 
 exports.isElementDisplayed = function(el){
   return el.isDisplayed().then(function(result) {
-    return result
+    return result;
   });
 };
 
 exports.isElementPresent = function(el){
   return el.isPresent().then(function(result) {
-    return result
+    return result;
   });
 };
