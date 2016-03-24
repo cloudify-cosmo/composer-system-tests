@@ -68,3 +68,9 @@ exports.isElementPresent = function(el){
     return result;
   });
 };
+
+exports.countElements = function(el){
+    return el.then(function(result){
+        return result.length;
+    });
+};

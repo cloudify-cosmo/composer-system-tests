@@ -108,9 +108,9 @@ describe('inputsOutputs page', function() {
       var dragItem = element.all(by.css('.stencilContainer')).get(0);
       var dragDest = element(by.id('topologyContainer'));
 
-      components.topology.page.dragAndDrop(dragItem, dragDest);
+      components.layout.dragAndDrop(dragItem, dragDest);
       components.topology.page.openNode();
-      components.topology.page.setPropertyValue();
+      components.topology.page.setPropertyValue('{"get_input":"name"}');
 
       browser.sleep(200);
 
@@ -133,16 +133,16 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.inputsOutputs.page.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
 
-      components.inputsOutputs.page.popoverDeleteConfirm(inputElement, 'no');//push 'No' btn
-      expect(components.inputsOutputs.page.isElementDisplayed(element(by.css('.popover')))).toBe(false);//popover should hide
+      components.popovers.popover.clickNo();//click no btn
+      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(false);//popover should hide
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
       components.topology.page.openNode();
 
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
+      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
 
       browser.sleep(200);
 
@@ -152,8 +152,6 @@ describe('inputsOutputs page', function() {
 
       expect(components.definitions.page.getPropertyDescription()).toBe('{ "get_input" : "name"}');//text should exist
 
-      //expect(propertyDescriptionElement.getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist
-
       browser.sleep(200).then(done);
     });
 
@@ -162,10 +160,10 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.inputsOutputs.page.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
 
-      components.inputsOutputs.page.popoverDeleteConfirm(inputElement, 'yes');//push 'Yes' btn
-      expect(components.inputsOutputs.page.isElementPresent(element(by.css('.popover')))).toBe(false);//popover should be deleted
+      components.popovers.popover.clickYes();//push 'Yes' btn
+      expect(components.layout.isElementPresent(element(by.css('.popover')))).toBe(false);//popover should be hide
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//input should be removed
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//output should exist
       expect(components.inputsOutputs.page.getOutputValue(outputElement)).toBe('');//output value field should be empty

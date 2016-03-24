@@ -17,15 +17,15 @@ describe('imports section', function() {
 
     describe('imports field', function() {
         it('import url should exist', function(done) {
-            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);//default amount of imports
+            expect(components.layout.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);//default amount of imports
             browser.sleep(200).then(done);
         });
         it('should open then close import modal view', function(done) {
             components.imports.page.openImportsViewDialog();//click show modal with import data btn
-            expect(components.imports.page.isElementDisplayed(element(by.css('.modal.fade.in')))).toBe(true);//modal should appear
+            expect(components.layout.isElementDisplayed(element(by.css('.modal.fade.in')))).toBe(true);//modal should appear
 
             components.modals.modal.cancelUsingSelector();//click cancel btn
-            expect(components.imports.page.isElementPresent(element(by.css('.modal.fade.in')))).toBe(false);//modal should disappear
+            expect(components.layout.isElementPresent(element(by.css('.modal.fade.in')))).toBe(false);//modal should disappear
 
             browser.sleep(200).then(done);
         });
@@ -33,11 +33,11 @@ describe('imports section', function() {
         it('check imports delete', function(done) {
             components.imports.page.openImportsDeletePopover(); //click delete icon
             components.popovers.popover.clickNo();//click no btn
-            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);//number of imports should not change
+            expect(components.layout.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);//number of imports should not change
 
             components.imports.page.openImportsDeletePopover();//click delete icon
             components.popovers.popover.clickYes();//click yes btn
-            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(8);//minus one import
+            expect(components.layout.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(8);//minus one import
 
             browser.sleep(200).then(done);
         });
@@ -46,7 +46,7 @@ describe('imports section', function() {
             components.imports.page.openAddImportsDialog();
             components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml', 'imports');
             components.modals.modal.save();
-            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(10);//plus one import
+            expect(components.layout.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(10);//plus one import
 
             browser.sleep(200).then(done);
         });
@@ -54,7 +54,7 @@ describe('imports section', function() {
     });
     describe('node types field', function() {
         it('node types should exist', function(done) {
-            expect(components.imports.page.countElements(element.all(by.repeater('nodeType in globals.stencils.nodeTypes')))).toBe(62);//default amount of node types
+            expect(components.layout.countElements(element.all(by.repeater('nodeType in globals.stencils.nodeTypes')))).toBe(62);//default amount of node types
             browser.sleep(200).then(done);
         });
         it('should orderBy type', function(done) {
@@ -66,7 +66,7 @@ describe('imports section', function() {
         it('should change used field for node types', function(done) {
             components.layout.goToTopology();
             //add node on topology page
-            var dragItem = components.imports.page.findSpecificContainerOnTopologyPage();
+            var dragItem = components.topology.page.findSpecificNodeContainerOnTopologyPage('cloudify.docker', 'Container');
             var dragDest = element(by.id('topologyContainer'));
             components.layout.dragAndDrop(dragItem, dragDest);//add node
 
@@ -87,7 +87,7 @@ describe('imports section', function() {
         it('should remove node types if import was deleted', function(done) {
             components.imports.page.openSpecificDeletePopover(components.imports.page.findSpecificUrl()); //click delete icon
             components.popovers.popover.clickYes();//click no btn
-            expect(components.imports.page.isElementPresent(components.imports.page.findSpecificUsedOnImportsPage())).toBe(false);
+            expect(components.layout.isElementPresent(components.imports.page.findSpecificUsedOnImportsPage())).toBe(false);
 
 
             browser.sleep(200).then(done);
@@ -102,7 +102,7 @@ describe('imports section', function() {
             components.layout.saveBlueprint(); //click save blueprint button
             browser.refresh();
 
-            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(10);
+            expect(components.layout.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(10);
 
             browser.sleep(200).then(done);
 
@@ -116,7 +116,7 @@ describe('imports section', function() {
             browser.sleep(200);
             browser.refresh();
 
-            expect(components.imports.page.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);
+            expect(components.layout.countElements(element.all(by.repeater('imports in globals.stencils.importsData')))).toBe(9);
 
             browser.sleep(1000).then(done);
 

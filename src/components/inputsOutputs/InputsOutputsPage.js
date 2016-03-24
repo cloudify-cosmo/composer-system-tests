@@ -49,24 +49,5 @@ exports.countInputsOrOutputs = function(el){
   return el.all(by.repeater('(key,field) in data')).count();
 };
 
-exports.isElementDisplayed = function(el){
-  return el.isDisplayed().then(function(result) {
-    return result;
-  });
-};
-exports.isElementPresent = function(el){
-  return el.isPresent().then(function(result) {
-    return result;
-  });
-};
-
-exports.popoverDeleteConfirm = function(el, status){
-  if(status === 'yes'){
-    return el.element(by.css('.okBtn')).click();
-  }  else{
-    return el.element(by.css('.cancelBtn')).click();
-  }
-};
-
 
 
