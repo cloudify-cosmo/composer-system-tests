@@ -121,7 +121,9 @@ describe('inputsOutputs page', function() {
 
       components.definitions.page.showHiddenInputs();//click on field to show hidden inputs
 
-      components.definitions.page.setDescriptionValue();
+      components.definitions.page.setDefaultValue();
+
+      components.definitions.page.clickEnterBtn();
       components.definitions.page.saveInlineTypeElement();//save inline type
 
       browser.sleep(200).then(done);
@@ -148,7 +150,6 @@ describe('inputsOutputs page', function() {
 
       components.definitions.page.clickEditButton();//click edit button
 
-      components.definitions.page.getPropertyDescription();//click edit button
       expect(components.definitions.page.getPropertyDescription()).toBe('{ "get_input" : "name"}');//text should exist
 
       //expect(propertyDescriptionElement.getAttribute('value')).toBe('{ "get_input" : "name"}');//text should exist

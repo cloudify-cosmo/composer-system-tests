@@ -70,8 +70,8 @@ exports.setInlineTypeName = function(){
     return element(by.model('configData.type')).sendKeys('name');
 };
 
-exports.setDescriptionValue = function(){
-    return element(by.css('.properties-block')).element(by.css('.tt-input')).sendKeys('{ "get_input" : "name"}');
+exports.setDefaultValue = function(){
+    return  element.all(by.model('property.default')).get(1).clear().sendKeys('{ "get_input" : "name"}');
 };
 
 exports.saveInlineTypeElement = function(){
@@ -86,3 +86,7 @@ exports.getPropertyDescription = function(){
     return element(by.css('.properties-block')).element(by.css('.tt-input')).getAttribute('value');
 };
 
+exports.clickEnterBtn = function(){
+    browser.sleep(400);
+    return browser.actions().sendKeys(protractor.Key.ENTER).perform();
+};
