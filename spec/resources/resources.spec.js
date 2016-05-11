@@ -25,7 +25,7 @@ describe('resources page', function () {
             components.popovers.popover.clickNo();//click no btn
             expect(components.resources.page.countResources()).toBe(2);
 
-            browser.sleep(400).then(done);
+            browser.sleep(200).then(done);
         });
         it('should delete folder', function (done) {
             components.resources.page.deleteItem(1);

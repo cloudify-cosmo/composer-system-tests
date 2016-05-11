@@ -18,28 +18,8 @@ exports.openUploadPluginDialog = function(){
 
 };
 
-exports.getPluginName = function(){
-
-    $$('.definition-block').filter((elem)=>{
-        return elem.getText().then((text)=>{
-            console.log('plugin name is: ' + text);
-            return text === 'Name';
-        });
-    }).then(function(filteredElements) {
-        console.log('plugin name is: ' +  filteredElements[0]);
-
-    });
-
-};
-
-exports.getPluginSource = function(){
-
-    $$('.display-name').filter((elem)=>{
-        return elem.getText().then((text)=>{
-            return text === 'Source';
-        });
-    });
-
+exports.getPluginInfo = function(pluginNumber, itemNumber){
+   return element.all(by.repeater('plugin in globals.definitions.plugins track by $index')).get(pluginNumber).all(by.css('.item-block ')).get(itemNumber).getText();
 };
 
 exports.getOverrideMsg = function(){
@@ -86,6 +66,10 @@ exports.getPropertyDescription = function(){
     return element(by.css('.properties-block')).element(by.css('.tt-input')).getAttribute('value');
 };
 
+exports.openDefinitionsImplementationModalEditor = function(){
+    $$('[ng-click="chooseImplementationForInterface(interface, item)"]').get(0).click();
+    return browser.sleep(400);
+};
 
 exports.clickEnterBtn = function(){
     browser.sleep(400);
@@ -118,6 +102,13 @@ exports.deleteInlineTypes = function(){
     element(by.css('.popover .okBtn')).click();
 };
 
+exports.deletePlugins = function(number){
+    if(!number){number = 0;}
+    element.all(by.repeater('plugin in globals.definitions.plugins track by $index')).get(number).all(by.css('.icon-delete')).get(0).click();
+    browser.sleep(200);
+    element(by.css('.popover .okBtn')).click();
+};
+
 exports.deleteRelationshipTypes = function(){
     element.all(by.repeater('relationship in globals.definitions.relationships')).get(0).all(by.css('.icon-delete')).get(0).click();
     browser.sleep(200);
@@ -134,3 +125,4 @@ exports.clickDeleteInlineTypesBtn = function(){
 exports.countPlugins = function(){
     return element.all(by.repeater('plugin in globals.definitions.plugins')).count();
 };
+
