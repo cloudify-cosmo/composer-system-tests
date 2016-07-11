@@ -7,14 +7,14 @@
     "fs-extra": "^0.24.0",
     "grunt": "~0.4.5",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt-protractor-runner": "~2.0.0",
-    "grunt-protractor-webdriver": "~0.2.0",
+    "grunt-protractor-runner": "~3.2.0",
+    "grunt-protractor-webdriver": "~0.2.5",
     "jshint-stylish": "^1.0.0",
     "load-grunt-tasks": "~3.1.0",
     "lodash": "^2.4.1",
     "log4js": "^0.6.21",
-    "protractor": "~2.0.0",
-    "selenium-webdriver": "~2.44.0"
+    "protractor": "~3.3.0",
+    "selenium-webdriver": "~2.53.3"
   },
   "devDependencies": {
     "eyes.protractor": "0.0.38",
