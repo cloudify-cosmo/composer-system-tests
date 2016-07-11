@@ -131,3 +131,6 @@ exports.clickDeleteRelationshipBtn = function(){
 exports.clickDeleteInlineTypesBtn = function(){
     element.all(by.repeater('inlineType in globals.definitions.inlineTypes')).get(0).all(by.css('.icon-delete')).get(0).click();
 };
+exports.countPlugins = function(){
+    return element.all(by.repeater('plugin in globals.definitions.plugins')).count();
+};

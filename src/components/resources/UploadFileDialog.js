@@ -26,3 +26,10 @@ exports.uploadFile = function( name ){
     exports.clickAddFile();
     return exports.clickSave();
 };
+exports.uploadMultiFiles = function( name, name2 ){
+    exports.setFilename(name);
+    exports.clickAddFile();
+    exports.setFilename(name2);
+    exports.clickAddFile();
+    return exports.clickSave();
+};
