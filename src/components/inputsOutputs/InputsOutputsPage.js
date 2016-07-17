@@ -33,6 +33,25 @@ exports.setInputOrOutputFields = function(el, type){
 
 };
 
+exports.setInput = function(name, description, defaultField){
+
+  element(by.css('.blueprint-inputs')).all(by.model('field.name')).get(0).sendKeys(name);
+
+  element(by.css('.blueprint-inputs')).all(by.model('field.description')).get(0).sendKeys(description);
+
+  element(by.css('.blueprint-inputs')).all(by.model('field.default')).get(0).sendKeys(defaultField);
+
+};
+exports.setOutput = function(name, description, value){
+
+  element(by.css('.blueprint-outputs')).all(by.model('field.name')).get(0).sendKeys(name);
+
+  element(by.css('.blueprint-outputs')).all(by.model('field.description')).get(0).sendKeys(description);
+
+  element(by.css('.blueprint-outputs')).all(by.model('field.value')).get(0).sendKeys(value);
+
+};
+
 exports.renameOutputValue = function(el){
    el.all(by.repeater('(key,field) in data')).then(function(result){
      result[0].element(by.css('.tt-input')).clear().sendKeys('name');

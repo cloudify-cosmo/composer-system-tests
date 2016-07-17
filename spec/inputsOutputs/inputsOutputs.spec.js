@@ -190,7 +190,7 @@ describe('inputsOutputs page', function() {
        components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
        components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
 
-       components.topology.page.saveBlueprint();//click save blueprint button
+       components.layout.saveBlueprint();//click save blueprint button
 
        browser.refresh();
        expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//input should exist
