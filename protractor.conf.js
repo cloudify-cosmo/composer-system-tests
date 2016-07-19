@@ -65,7 +65,8 @@ exports.config = {
         'buildNodecellar' : get_suite('demos/buildNodecellar'),
         'inlineTypes' : get_suite('definitions/inlineTypes'),
         'relationships' : get_suite('definitions/relationships'),
-        'topologyNodeInfo' : get_suite('topology/nodeInfo')
+        'topologyNodeInfo' : get_suite('topology/nodeInfo'),
+        'sanity': get_suite('sanity/import')
     },
     baseUrl: baseUrl,
 
