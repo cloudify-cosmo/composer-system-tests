@@ -74,3 +74,11 @@ exports.countElements = function(el){
         return result.length;
     });
 };
+
+exports.addSystemTestSupport = function(){
+    browser.getCurrentUrl().then(function( url ){
+        url = url + '?systemTestSupport=true';
+        browser.get(url);
+        browser.sleep(3000);
+    });
+};

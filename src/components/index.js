@@ -10,4 +10,5 @@ exports.login = require('./login');
 exports.modals = require('./modals');
 exports.inputsOutputs = require('./inputsOutputs');
 exports.topology = require('./topology');
+exports.importBlueprint = require('./importBlueprint');
 
