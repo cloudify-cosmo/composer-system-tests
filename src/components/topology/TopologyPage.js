@@ -99,7 +99,7 @@ exports.changeImplementationName = function(newName){
 };
 
 exports.selectSpecificImplementation = function(implementation){
-  return  element(by.cssContainingText('.plugin-operations li', implementation)).click();
+  return  element.all(by.cssContainingText('.plugin-operations li', implementation)).get(0).click();
 };
 
 exports.openNetworkSection = function(){

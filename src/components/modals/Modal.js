@@ -29,7 +29,7 @@ exports.done = function(){
 };
 
 exports.cancel = function(){
-    return $('[ng-click="cancel()"]').click();
+    return $$('[ng-click="cancel()"]').click();
 };
 
 exports.cancelUsingSelector = function(){
@@ -49,5 +49,16 @@ exports.renameValueInEditor = function(newValue){
 exports.copyToEditor = function(){
     return $('[ng-click="copyToEditor()"]').click();
 };
+
+exports.cancelUsingSelector = function(){
+    element(by.css('.modal.fade.in .cancel')).click();
+    return browser.sleep(500); //waiting when modal close
+};
+
+exports.enterFilePath = function(url){
+   return $('input[type="file"]').sendKeys(url);
+};
+
+
 
 
