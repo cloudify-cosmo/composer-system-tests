@@ -57,6 +57,10 @@ exports.saveBlueprint = function(){
     return browser.sleep(200);
 };
 
+exports.validateBlueprint = function() {
+  $('[ng-click="validateBlueprint()"]').click();
+};
+
 exports.isElementDisplayed = function(el){
   return el.isDisplayed().then(function(result) {
     return result;
