@@ -75,7 +75,7 @@ describe('resources page', function () {
 
     describe('add file ', function () {
         it('should  add file', function (done) {
-            components.resources.page.addSystemTestSupport();
+            components.layout.addSystemTestSupport();
             components.resources.page.openUploadFileDialog();
             expect(element(by.css('.modal-dialog')).isDisplayed()).toBe(true);
 
@@ -102,7 +102,7 @@ describe('resources page', function () {
             browser.sleep(200).then(done);
         });
         it('should add multi files', function (done) {
-            components.resources.page.addSystemTestSupport();
+            components.layout.addSystemTestSupport();
             components.resources.page.openUploadFileDialog();
             expect(element(by.css('.modal-dialog')).isDisplayed()).toBe(true);
 
@@ -199,7 +199,7 @@ describe('resources page', function () {
             browser.sleep(200).then(done);
         });
         it('should add multi files', function (done) {
-            components.resources.page.addSystemTestSupport();
+            components.layout.addSystemTestSupport();
             components.resources.page.openUploadFileDialog();
             expect(element(by.css('.modal-dialog')).isDisplayed()).toBe(true);
 

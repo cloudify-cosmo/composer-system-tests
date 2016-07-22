@@ -16,8 +16,10 @@ exports.openNode = function(number){
   return element.all(by.css('.nodeContainer')).get(number).click();
 };
 exports.openConnector = function(number){
-  if(!number){number = 0;}
-  return element.all(by.css('.connectorContainer')).get(number).click();
+  if (!number) {
+    number = 0;
+  }
+  return element.all(by.css('.connectorContainer')).get(number).all(by.css('.connectorPoints')).get(1).click();
 };
 
 exports.closeNode = function(){
@@ -81,6 +83,9 @@ exports.openConnectorRelationshipSection = function(){
   return browser.sleep(400);
 };
 
+exports.selectContainedInConnection = function() {
+  return $('[ng-click="selectContainedInConnection()"]').click();
+};
 exports.addCustomInterfaceInput = function(){
   return $$('[ng-click="createInput(interfaceName,method,methodData)"]').get(0).click();
 };

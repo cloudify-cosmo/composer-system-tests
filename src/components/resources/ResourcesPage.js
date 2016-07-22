@@ -20,14 +20,6 @@ exports.countResources = function(){
 };
 
 
-exports.addSystemTestSupport = function(){
-    browser.getCurrentUrl().then(function( url ){
-        url = url + '?systemTestSupport=true';
-        browser.get(url);
-        browser.sleep(3000);
-    });
-};
-
 exports.deleteItem = function(number){
     if(!number){number = 0;}
     browser.actions().mouseMove(element.all(by.css('.name')).get(number)).perform();
