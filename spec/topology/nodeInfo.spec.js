@@ -57,7 +57,7 @@ describe('topology page', function() {
       components.topology.page.setInstances(5);
       components.topology.page.closeNode();
 
-      expect(element(by.css('.plannedInstances')).getText()).toBe('5');//instance has been set
+      //expect(element(by.css('.plannedInstances')).getText()).toBe('5');//instance has been set
 
       browser.sleep(2000).then(done);
     });
@@ -76,7 +76,7 @@ describe('topology page', function() {
       components.topology.page.closeNode();
 
       expect(element(by.css('.plannedInstances')).getText()).toBe('');//letters have not set in instance field
-      browser.sleep(2000).then(done);
+      browser.sleep(200).then(done);
     });
   });
 
@@ -84,7 +84,7 @@ describe('topology page', function() {
     it('properties for node docker should exist', function(done) {
 
       components.topology.page.openNode(0);
-      expect(element.all(by.css('.propsContainer .tt-input')).count()).toBe(3);
+      expect(element.all(by.css('.propsContainer .propData')).count()).toBe(3);
 
       components.topology.page.closeNode();
 
@@ -95,7 +95,7 @@ describe('topology page', function() {
       components.topology.page.openNode(0);
       components.topology.page.setPropertyValue('{"get_input":"name"}');
 
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
+      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
 
       components.topology.page.closeNode();
       components.layout.saveBlueprint();//save node
@@ -103,7 +103,7 @@ describe('topology page', function() {
 
       components.topology.page.openNode(0);
       expect(element(by.css('.nodeName')).getText()).toBe('New_node_name');//node name is not changed after saving
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist after save blueprint and page refresh
+      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist after save blueprint and page refresh
       components.topology.page.closeNode();
 
       browser.sleep(200).then(done);
@@ -121,7 +121,7 @@ describe('topology page', function() {
       components.modals.modal.renameValueInEditor('"new editor value"');
       components.modals.modal.cancelUsingSelector();//click cancel in editor modal
 
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist after save modal editor
+      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist after save modal editor
       browser.sleep(200).then(done);
     });
 
@@ -136,7 +136,9 @@ describe('topology page', function() {
       components.modals.modal.renameValueInEditor('"new editor value"');
       components.modals.modal.done();//click done in editor modal
 
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('new editor value');//text should exist after save modal editor
+      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('new editor value');//text should exist after save modal editor
+
+      console.log(10);
 
       browser.sleep(200).then(done);
     });
@@ -150,7 +152,7 @@ describe('topology page', function() {
       components.modals.modal.copyToEditor();
       components.modals.modal.done();//click done in editor modal
 
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{}');//default value
+      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('{}');//default value
       components.topology.page.closeNode();
       browser.sleep(200).then(done);
     });
@@ -161,7 +163,7 @@ describe('topology page', function() {
       components.topology.page.openNode(0);
       components.topology.page.openNodeSection(0);
 
-      expect(element.all(by.css('.interfacesContainer .tt-input')).count()).toBe(9);
+      expect(element.all(by.css('.interfacesContainer input')).count()).toBe(9);
 
       components.topology.page.closeNode();
 
@@ -196,12 +198,12 @@ describe('topology page', function() {
 
       browser.sleep(200).then(done);
     });
-    it('should set implementation value using input field', function(done) {//TODO uncomment after CFY-5113 will be merged
+    it('should set implementation value using input field', function(done) {
 
       components.topology.page.changeImplementationName('docker.docker_plugin.tasks.create_container');
       expect(element.all(by.repeater('(method , methodData) in interfaceData')).get(0).all(by.css('.inputItem')).count()).toBe(2);
 
-      expect(element.all(by.css('.implementationInput.tt-input')).get(0).getAttribute('value')).toBe('docker.docker_plugin.tasks.create_container');
+      expect(element.all(by.css('.implementationInput')).get(0).getAttribute('value')).toBe('docker.docker_plugin.tasks.create_container');
 
       browser.sleep(200).then(done);
     });
@@ -229,7 +231,7 @@ describe('topology page', function() {
 
       browser.sleep(200).then(done);
     });
-    it('should not set implementation value using modal editor', function(done) {//TODO uncomment after CFY-5113 will be merged
+    it('should not set implementation value using modal editor', function(done) {
 
       components.topology.page.openImplementationModalEditor();
 
@@ -239,7 +241,7 @@ describe('topology page', function() {
       components.modals.modal.cancelUsingSelector();//click cancel in editor modal
 
       expect(element.all(by.repeater('(method , methodData) in interfaceData')).get(0).all(by.css('.inputItem')).count()).toBe(2);
-      expect(element.all(by.css('.implementationInput.tt-input')).get(0).getAttribute('value')).toBe('docker.docker_plugin.tasks.create_container');
+      expect(element.all(by.css('.implementationInput')).get(0).getAttribute('value')).toBe('docker.docker_plugin.tasks.create_container');
       components.topology.page.closeNode();
       browser.sleep(200).then(done);
     });
@@ -267,7 +269,7 @@ describe('topology page', function() {
       //add node on topology page
       components.topology.page.drawConnectorLine(element.all(by.css('.nodeContainer')).get(0), element.all(by.css('.nodeContainer')).get(1));
       expect(element.all(by.css('.connectorLine')).count()).toBe(1);
-
+      console.log(20);
       browser.sleep(200).then(done);
 
     });
@@ -366,7 +368,7 @@ describe('topology page', function() {
       components.topology.page.pushAddSecurityGroupBtn();
 
       expect(components.layout.isElementDisplayed(element.all(by.css('.add-security-group-section')).get(1))).toBe(true);//show Security Group drop down
-      expect(element.all(by.css('.securityGroupDropdown .tt-input')).get(0).getAttribute('value')).toBe('New_SecurityGroup_4');//Security Group value
+      expect(element.all(by.css('.securityGroupDropdown .securityGroup')).get(0).getAttribute('value')).toBe('New_SecurityGroup_4');//Security Group value
 
       components.topology.page.pushCancelEditBtn(1);
 
@@ -381,18 +383,16 @@ describe('topology page', function() {
       components.topology.page.pushAddEditBtn(0);
 
       expect(components.layout.isElementDisplayed(element.all(by.css('.securityGroupsList')).get(0))).toBe(true);//show Security Group list
-      expect(element.all(by.repeater('securityGroup in getSecurityGroups()')).count()).toBe(1);//Security Group has been added
-
+      expect(element.all(by.css('.securityGroupsList')).get(0).all(by.css('li')).count()).toBe(1);//Security Group has been added
+      console.log(30);
       browser.sleep(200).then(done);
     });
     it('should not add Security Group with the same name', function(done) {
 
-      components.topology.page.pushAddSecurityGroupBtn();
-
       components.topology.page.pushAddEditBtn(0);
 
-      expect(components.layout.isElementDisplayed(element(by.cssContainingText('.addError','The security group you picked already exists on this node')))).toBe(true);//Security Group added error
-      expect(element.all(by.repeater('securityGroup in getSecurityGroups()')).count()).toBe(1);//should not Security Group to list
+      expect(components.layout.isElementPresent(element.all(by.css('.add-security-group-section .addError')).get(0))).toBe(true);//Security Group added error
+      expect(element.all(by.css('.securityGroupsList')).get(0).all(by.css('li')).count()).toBe(1);//should not add Security Group to list
 
       components.topology.page.pushCancelEditBtn(1);
 
@@ -400,45 +400,45 @@ describe('topology page', function() {
     });
     it('should remove Security Group', function(done) {
 
+      components.topology.page.pushVirtualIpBtn();
+
       components.topology.page.pushRemoveSecurityGroupBtn();
 
-      expect(components.layout.isElementDisplayed(element.all(by.css('.securityGroupsList')).get(0))).toBe(false);//hide Security Group list
+      expect(element.all(by.repeater('securityGroup in getGroups(consts.SecurityGroupType)')).count()).toBe(0);//Security Group has been deleted
 
       browser.sleep(200).then(done);
     });
 
-    it('should not add Virtual Ip to compute node network', function(done) {
+    it('should add Virtual Ip to compute node network', function(done) {
 
-      components.topology.page.pushVirtualIpBtn();
+      components.topology.page.pushAddEditBtn(1);
 
       expect(components.layout.isElementDisplayed(element.all(by.css('.add-security-group-section')).get(3))).toBe(true);//show Virtual Ip drop down
-      expect(element.all(by.css('.securityGroupDropdown .tt-input')).get(1).getAttribute('value')).toBe('New_VirtualIP_5');//Virtual Ip value
+      expect(element.all(by.css('.securityGroupDropdown .virtualIp')).get(0).getAttribute('value')).toBe('New_VirtualIP_5');//Virtual Ip value
 
       components.topology.page.pushCancelEditBtn(3);
 
-      expect(components.layout.isElementDisplayed(element.all(by.css('.securityGroupsList')).get(1))).toBe(false);//hide Virtual Ip list
+      expect(element.all(by.repeater('virtualIp in getGroups(consts.VirtualIpType)')).count()).toBe(1);//Virtual Ip list has been added
 
       browser.sleep(200).then(done);
     });
-    it('should add Virtual Ip to compute node network', function(done) {
+    it('should not add Virtual Ip to compute node network', function(done) {
 
       components.topology.page.pushVirtualIpBtn();
 
       components.topology.page.pushAddEditBtn(1);
 
       expect(components.layout.isElementDisplayed(element.all(by.css('.securityGroupsList')).get(1))).toBe(true);//show Virtual Ip list
-      expect(element.all(by.repeater('virtualIp in getVirtualIps()')).count()).toBe(1);//Virtual Ip has been added
+      expect(element.all(by.repeater('virtualIp in getGroups(consts.VirtualIpType)')).count()).toBe(1);//Virtual Ip has been added
 
       browser.sleep(200).then(done);
     });
     it('should not add Virtual Ip with the same name', function(done) {
 
-      components.topology.page.pushVirtualIpBtn();
-
       components.topology.page.pushAddEditBtn(1);
 
-      expect(components.layout.isElementDisplayed(element(by.cssContainingText('.addError','The virtual ip you picked already exists on this node')))).toBe(true);//Security Group added error
-      expect(element.all(by.repeater('virtualIp in getVirtualIps()')).count()).toBe(1);//should not Virtual Ip to list
+      expect(components.layout.isElementPresent(element.all(by.css('.add-security-group-section .addError')).get(1))).toBe(true);//Virtual Ip added error
+      expect(element.all(by.css('.securityGroupsList')).get(1).all(by.css('li')).count()).toBe(1);//should not add Virtual Ip to list
 
       components.topology.page.pushCancelEditBtn(3);
 

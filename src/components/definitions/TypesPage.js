@@ -77,8 +77,7 @@ exports.clickOperation= function(number){
 };
 
 exports.renameOperation = function(newName, type, number){
-    element.all(by.model('item.' + type)).get(number).clear().sendKeys(newName);
-    return browser.actions().mouseMove({x: 400, y: 1000}).perform();
+    return element.all(by.model('item.' + type)).get(number).clear().sendKeys(newName);
 };
 
 exports.saveNewInterface = function(number){
@@ -171,5 +170,5 @@ exports.selectNewRelationshipDerivedFrom = function(derivedFrom){
 };
 
 exports.selectedDerivedFrom = function(){
-    return element.all(by.css('.derived-from-form .tt-input')).get(0).getAttribute('value');
+    return element.all(by.css('.derived-from-form')).get(0).element(by.model('configData.data.derived_from')).getAttribute('value');
 };

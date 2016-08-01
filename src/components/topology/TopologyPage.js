@@ -57,11 +57,11 @@ exports.removeInstances = function() {
 };
 
 exports.setPropertyValue = function(value) {
-  return element.all(by.css('.propsContainer .tt-input')).get(0).clear().sendKeys(value);
+  return element.all(by.css('.propsContainer .propData')).get(0).clear().sendKeys(value);
 };
 
 exports.getPropertyValue = function() {
-  return element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value');
+  return element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value');
 };
 
 exports.openPropertyModalEditor = function() {
@@ -89,7 +89,7 @@ exports.openNodeSection = function(number) {
     number = 0;
   }
   $$('[ng-click="toggleOpen($event,\'Node\')"]').get(number).click();
-  return browser.sleep(400);
+  return browser.sleep(800);
 };
 
 exports.openConnectorRelationshipSection = function() {
@@ -106,7 +106,7 @@ exports.removeCustomInterfaceInput = function() {
 };
 
 exports.changeImplementationName = function(newName) {
-  return $$('.methodDataRow .tt-input').get(0).clear().sendKeys(newName);
+  return $$('.methodDataRow .implementationInput').get(0).clear().sendKeys(newName);
 };
 
 exports.selectSpecificImplementation = function(implementation) {
@@ -123,24 +123,25 @@ exports.pushAddSecurityGroupBtn = function() {
 };
 
 exports.pushRemoveSecurityGroupBtn = function() {
-  return $$('[ng-click="removeSecurityGroup(securityGroup)"]').get(0).click();
+  $$('[ng-click="removeItem(securityGroup)"]').get(0).click();
+  return browser.sleep(400);
 };
 
 exports.pushCancelEditBtn = function(number) {
-  return $$('.add-security-group-section .cancelEditBtn').get(number).click();
+  return $$('.add-security-group-section').get(number).element(by.css('.cancelEditBtn')).click();
 };
 
 exports.pushAddEditBtn = function(number) {
-  return $$('.add-security-group-section .icon-add').get(number).click();
+  $$('.add-security-group-section .icon-add').get(number).click();
+  return browser.sleep(100);
 };
-
 
 exports.pushVirtualIpBtn = function() {
   return $$('.add-security-button').get(1).click();
 };
 
 exports.pushRemoveVirtualIpBtn = function() {
-  return $$('[ng-click="removeVirtualIp(virtualIp)"]').get(0).click();
+  return $$('[ng-click="removeItem(virtualIp)"]').get(0).click();
 };
 
 exports.getNode = function(name) {
