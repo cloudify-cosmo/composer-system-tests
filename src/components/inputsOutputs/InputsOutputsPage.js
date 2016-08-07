@@ -15,40 +15,22 @@ exports.deleteInputOrOutput = function(el){
   return el.$('[ng-click="checkRemoveField(key,field)"]').click();
 };
 
-exports.setInputOrOutputFields = function(el, type){
-
-  var nameField = el.all(by.model('field.name')).get(0);
-  nameField.sendKeys('name');
-
-  var descriptionField = el.all(by.model('field.description')).get(0);
-  descriptionField.sendKeys('description');
-
-  if(type === 'input'){
-    var defaultField = el.all(by.model('field.default')).get(0);
-    defaultField.sendKeys('default');
-  }else{
-    var valueField = el.all(by.model('field.value')).get(0);
-    valueField.sendKeys('value');
-  }
-
-};
-
 exports.setInput = function(name, description, defaultField){
 
-  element(by.css('.blueprint-inputs')).all(by.model('field.name')).get(0).sendKeys(name);
+  element(by.css('.blueprint-inputs')).all(by.model('field.name')).get(0).clear().sendKeys(name);
 
-  element(by.css('.blueprint-inputs')).all(by.model('field.description')).get(0).sendKeys(description);
+  element(by.css('.blueprint-inputs')).all(by.model('field.description')).get(0).clear().sendKeys(description);
 
-  element(by.css('.blueprint-inputs')).all(by.model('field.default')).get(0).sendKeys(defaultField);
+  element(by.css('.blueprint-inputs')).all(by.model('field.default')).get(0).clear().sendKeys(defaultField);
 
 };
 exports.setOutput = function(name, description, value){
 
-  element(by.css('.blueprint-outputs')).all(by.model('field.name')).get(0).sendKeys(name);
+  element(by.css('.blueprint-outputs')).all(by.model('field.name')).get(0).clear().sendKeys(name);
 
-  element(by.css('.blueprint-outputs')).all(by.model('field.description')).get(0).sendKeys(description);
+  element(by.css('.blueprint-outputs')).all(by.model('field.description')).get(0).clear().sendKeys(description);
 
-  element(by.css('.blueprint-outputs')).all(by.model('field.value')).get(0).sendKeys(value);
+  element(by.css('.blueprint-outputs')).all(by.model('field.value')).get(0).clear().sendKeys(value);
 
 };
 

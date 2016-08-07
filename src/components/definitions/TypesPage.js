@@ -46,6 +46,9 @@ exports.renameProperty = function(newName, type, number){
     return  element.all(by.model('property.'+type)).get(number).clear().sendKeys(newName);
 };
 
+exports.changePropertyType = function(newName, type, number){
+    return  element.all(by.model('property.'+type)).get(number).clear().sendKeys(newName);
+};
 
 exports.deleteInlineTypeProperties = function(){
     return  $$('[ng-click="deleteProperty($index)"]').get(0).click();

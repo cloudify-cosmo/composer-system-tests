@@ -86,3 +86,13 @@ exports.addSystemTestSupport = function(){
         browser.sleep(3000);
     });
 };
+
+exports.openDropdown = function(number){
+    if(!number){number = 0;}
+    return $$('.prop-dropdown').get(number).click();
+};
+
+exports.selectDropdownType = function(derivedFrom, number){
+    if(!number){number = 0;}
+    return  element.all(by.cssContainingText('.dropdown-menu a', derivedFrom)).get(number).click();
+};

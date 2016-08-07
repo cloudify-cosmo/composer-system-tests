@@ -15,7 +15,6 @@ describe('inputsOutputs page', function() {
     components.layout.goToInputsOutputs();
   });
 
-
   describe('add input and output', function() {
 
     it('should not add input with empty name', function(done) {
@@ -36,7 +35,7 @@ describe('inputsOutputs page', function() {
     it('should fill fields and add input', function(done) {
       //fill input fields and add it
 
-      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+      components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
       browser.sleep(200).then(done);
 
@@ -45,7 +44,7 @@ describe('inputsOutputs page', function() {
     it('should fill fields and add output', function(done) {
       //fill output fields and add it
 
-      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.setOutput('name', 'description', 'value');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
       browser.sleep(200).then(done);
 
@@ -54,7 +53,7 @@ describe('inputsOutputs page', function() {
     it('should not add inputs with the same name', function(done) {
       //check that we can't add output if name exist
 
-      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+      components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//new field should not be added
       browser.sleep(200).then(done);
@@ -64,7 +63,7 @@ describe('inputsOutputs page', function() {
     it('should not add outputs with the same name', function(done) {
       //check that we can't add output if name exist
 
-      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.setOutput('name', 'description', 'value');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//new field should not be added
       browser.refresh();
@@ -76,7 +75,7 @@ describe('inputsOutputs page', function() {
 
     it('should remove input', function(done) {
       // remove input
-      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+      components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
@@ -86,7 +85,7 @@ describe('inputsOutputs page', function() {
 
     it('should remove output', function(done) {
       // remove output
-      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.setOutput('name', 'description', 'value');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
@@ -96,8 +95,8 @@ describe('inputsOutputs page', function() {
 
     it('should set input name in outputs value, node property and inlineTypes property field', function(done) {
 
-      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
-      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
+      components.inputsOutputs.page.setOutput('name', 'description', 'value');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.renameOutputValue(outputElement);// change the output value as at input name
@@ -133,10 +132,10 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect(components.layout.isElementDisplayed(element.all(by.css('.popover')).get(0))).toBe(true);//popover should show up
 
       components.popovers.popover.clickNo();//click no btn
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(false);//popover should hide
+      expect(components.layout.isElementDisplayed(element.all(by.css('.popover')).get(0))).toBe(false);//popover should hide
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
@@ -160,10 +159,10 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect(components.layout.isElementDisplayed(element.all(by.css('.popover')).get(0))).toBe(true);//popover should show up
 
       components.popovers.popover.clickYes();//push 'Yes' btn
-      expect(components.layout.isElementPresent(element(by.css('.popover')))).toBe(false);//popover should be hide
+      expect(components.layout.isElementDisplayed(element.all(by.css('.popover')).get(0))).toBe(false);//popover should be hide
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//input should be removed
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//output should exist
       expect(components.inputsOutputs.page.getOutputValue(outputElement)).toBe('');//output value field should be empty
@@ -185,8 +184,8 @@ describe('inputsOutputs page', function() {
      it('should show input and output after save and page refresh', function(done){
        components.layout.goToInputsOutputs();
 
-       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
-       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+       components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
+       components.inputsOutputs.page.setOutput('name', 'description', 'value');//fill fields
        components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
        components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
 
@@ -199,5 +198,44 @@ describe('inputsOutputs page', function() {
        browser.sleep(200).then(done);
 
      });
+  });
+  describe('inputs TOSCA data types', function() {
+    it('should add node with (string, integer and boolean) types', function(done) {
+      components.layout.openDropdown(0);
+      components.layout.selectDropdownType('string');
+      components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('default');//text should exist
+
+      components.inputsOutputs.page.setInput('name', 'description', '555');//fill fields
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('555');//text should exist
+      browser.sleep(200).then(done);
+    });
+
+    it('should check integer type', function(done) {
+
+      components.layout.openDropdown(0);
+      components.layout.selectDropdownType('integer');
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('');//text should not exist
+
+      components.inputsOutputs.page.setInput('name', 'description', 'default');//fill fields
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('');//text should not exist
+
+      components.inputsOutputs.page.setInput('name', 'description', '555');//fill fields
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('555');//text should exist
+      browser.sleep(200).then(done);
+    });
+    it('should check boolean type', function(done) {
+
+      components.layout.openDropdown(0);
+      components.layout.selectDropdownType('boolean');
+      expect(element.all(by.css('.insertLine .prop-dropdown')).count()).toBe(2);//should appears second dropdown
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('true');//text should not exist
+
+      components.layout.openDropdown(0);
+      components.layout.selectDropdownType('false');
+      expect(element.all(by.model('field.default')).get(0).getAttribute('value')).toBe('false');
+
+      browser.sleep(200).then(done);
+    });
   });
 });

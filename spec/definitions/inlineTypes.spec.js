@@ -11,6 +11,7 @@ describe('inlineTypes section', function() {
         browser.sleep(2000);
         components.layout.goToDefinitions();
     });
+
     describe('add/remove inlineTypes', function() {
 
         it('should not add inlineTypes with empty name', function(done) {
@@ -91,7 +92,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickProperty(1);//click inlineType property
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(true);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(true);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -102,7 +103,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickProperty(1);//click on the same property
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(true);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(true);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -122,9 +123,9 @@ describe('inlineTypes section', function() {
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(false);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(false);//description field btn should be displayed
-            console.log(10);
+
             browser.sleep(200).then(done);
         });
 
@@ -144,11 +145,11 @@ describe('inlineTypes section', function() {
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(false);//key field should not be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should not be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should not be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(false);//description field btn not should be displayed
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(0))).toBe(true);//key field should be displayed (first property)
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(0))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input) (first property)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(0))).toBe(true);//default field btn should be displayed (first property)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(0))).toBe(true);//description field btn should be displayed (first property)
 
             browser.sleep(200).then(done);
@@ -166,11 +167,11 @@ describe('inlineTypes section', function() {
 
             expect(element.all(by.repeater('property in data track by $index')).get(1).all(by.css('.select-input-height')).get(0).getText()).toBe('New_property_5');//property wasn't renamed
             expect(element.all(by.repeater('property in data track by $index')).get(1).all(by.css('.select-input-height')).get(1).getText()).toBe('default');//property wasn't renamed
-            expect(element.all(by.repeater('property in data track by $index')).get(1).all(by.css('.select-input-height')).get(2).getText()).toBe('description');//property wasn't renamed
+            expect(element.all(by.repeater('property in data track by $index')).get(1).all(by.css('.select-input-height')).get(3).getText()).toBe('description');//property wasn't renamed
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(false);//key field should not be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should not be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should not be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(false);//description field btn not should be displayed
 
             browser.sleep(200).then(done);
@@ -293,8 +294,6 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickEnterBtn();
             expect(components.layout.isElementDisplayed(element.all(by.cssContainingText('.nameEditError', 'Interface name already in use. Please select a different name.')).get(1))).toBe(true);//interface name error msg should appears
             expect(element(by.cssContainingText('.btn-primary', 'Save')).getAttribute('disabled')).toBe('true');//save btn should be disabled
-
-            console.log(20);
 
             browser.sleep(200).then(done);
 
@@ -434,11 +433,8 @@ describe('inlineTypes section', function() {
 
             components.definitions.types.closeType();//push cancel button
 
-            console.log(30);
-
             browser.sleep(200).then(done);
         });
-
     });
     describe('inlineTypes inputs', function() {
         it('should add new inlineType input', function(done) {
@@ -492,7 +488,7 @@ describe('inlineTypes section', function() {
 
             components.definitions.types.clickInput(0);//click inlineType input
             expect(components.layout.isElementDisplayed(element.all(by.model('option.name')).get(0))).toBe(true);//name field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('option.description')).get(0))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('option.description')).get(0))).toBe(true);//default field btn should be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('option.default ')).get(0))).toBe(true);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -503,7 +499,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickInput(0);//click on the same input
 
             expect(components.layout.isElementDisplayed(element.all(by.model('option.name')).get(0))).toBe(true);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('option.description')).get(0))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('option.description')).get(0))).toBe(true);//default field btn should be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('option.default ')).get(0))).toBe(true);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -523,7 +519,7 @@ describe('inlineTypes section', function() {
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('option.name')).get(0))).toBe(false);//name field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('option.description')).get(0))).toBe(false);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('option.description')).get(0))).toBe(false);//default field btn should be displayed
             expect(components.layout.isElementDisplayed(element.all(by.model('option.default ')).get(0))).toBe(false);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -614,8 +610,6 @@ describe('inlineTypes section', function() {
 
             components.definitions.types.saveType();//save inlineType view
 
-            console.log(40);
-
             browser.sleep(200).then(done);
         });
         it('should not set default value in property on the edit page', function(done) {
@@ -669,7 +663,61 @@ describe('inlineTypes section', function() {
 
             expect(components.layout.isElementPresent(element(by.css('.popover .okBtn')))).toBe(false);//popover should not show
 
-            browser.sleep(1000).then(done);
+            browser.sleep(200).then(done);
+        });
+    });
+    describe('TOSCA data types', function() {
+        it('should add properties and change the type to string', function(done){
+            components.definitions.page.pushNewTypeBtn();//open inlineType view
+            components.definitions.types.setTypeName('test');//set inlineType name
+            components.definitions.types.addNewProperty();//set new inlineType property
+
+            components.definitions.types.clickProperty(0);//click inlineType property
+            components.layout.openDropdown(0);//types dropdown
+            expect($$('.prop-dropdown').get(0).all(by.repeater('data in list')).count()).toBe(3);
+            components.layout.selectDropdownType('string');//set string type
+            components.definitions.types.renameProperty('string', 'default', 0);//rename inlineType property
+            components.definitions.types.clickEnterBtn();
+
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(1).getText()).toBe('string');
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(2).getText()).toBe('string');
+            browser.sleep(200).then(done);
+        });
+        it('should change the type to integer and put in default field only numbers', function(done){
+            components.definitions.types.clickProperty(0);//click inlineType property
+            components.layout.openDropdown(0);//types dropdown
+            components.layout.selectDropdownType('integer');//set string type
+            components.definitions.types.clickEnterBtn();
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(1).getText()).toBe('');//when we changed types, default field becomes empty
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(2).getText()).toBe('integer');
+
+            components.definitions.types.clickProperty(0);//click inlineType property
+            components.definitions.types.renameProperty('integer', 'default', 0);//rename inlineType property
+            components.definitions.types.clickEnterBtn();
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(1).getText()).toBe('');//should allow put only numbers
+
+            components.definitions.types.clickProperty(0);//click inlineType property
+            components.definitions.types.renameProperty(555, 'default', 0);//rename inlineType property
+            components.definitions.types.clickEnterBtn();
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.prop-dropdown ')).count()).toBe(2);//dropdown for default field should appears
+
+            browser.sleep(200).then(done);
+        });
+        it('should change the type to boolean also default field should transform into dropdown', function(done){
+            components.definitions.types.clickProperty(0);//click inlineType property
+            components.layout.openDropdown(0);//types dropdown
+            components.layout.selectDropdownType('boolean');//set string type
+            components.definitions.types.clickEnterBtn();
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(1).getText()).toBe('true');//should appear dropdown with true by default
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(2).getText()).toBe('boolean');
+
+            components.definitions.types.clickProperty(0);//click inlineType property
+            components.layout.openDropdown(0);//default dropdown
+            components.layout.selectDropdownType('false');
+            components.definitions.types.clickEnterBtn();
+            expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(1).getText()).toBe('false');
+
+            browser.sleep(2000).then(done);
         });
     });
 });
