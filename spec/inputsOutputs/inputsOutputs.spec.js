@@ -142,7 +142,7 @@ describe('inputsOutputs page', function() {
       components.layout.goToTopology();
       components.topology.page.openNode();
 
-      expect(element.all(by.css('.propsContainer .tt-input')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
+      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
 
       browser.sleep(200);
 

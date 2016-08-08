@@ -27,7 +27,7 @@ exports.setInputOrOutputFields = function(el, type){
     var defaultField = el.all(by.model('field.default')).get(0);
     defaultField.sendKeys('default');
   }else{
-    var valueField = el.all(by.css('.tt-input')).get(0);
+    var valueField = el.all(by.model('field.value')).get(0);
     valueField.sendKeys('value');
   }
 
@@ -54,13 +54,13 @@ exports.setOutput = function(name, description, value){
 
 exports.renameOutputValue = function(el){
    el.all(by.repeater('(key,field) in data')).then(function(result){
-     result[0].element(by.css('.tt-input')).clear().sendKeys('name');
+     result[0].element(by.model('field.value')).clear().sendKeys('name');
   });
 };
 
 exports.getOutputValue = function(el){
    return el.all(by.repeater('(key,field) in data')).then(function(result){
-     return result[0].element(by.css('.tt-input')).getAttribute('value');
+     return result[0].element(by.model('field.value')).getAttribute('value');
   });
 };
 

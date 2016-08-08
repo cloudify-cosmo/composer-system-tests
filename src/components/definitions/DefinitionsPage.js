@@ -51,7 +51,7 @@ exports.setInlineTypeName = function(){
 };
 
 exports.setDefaultValue = function(){
-    return  element.all(by.model('property.default')).get(1).clear().sendKeys('{ "get_input" : "name"}');
+    return  element.all(by.model('property.default')).get(0).clear().sendKeys('{ "get_input" : "name"}');
 };
 
 exports.saveInlineTypeElement = function(){
@@ -63,7 +63,7 @@ exports.clickEditButton = function(){
 };
 
 exports.getPropertyDescription = function(){
-    return element(by.css('.properties-block')).element(by.css('.tt-input')).getAttribute('value');
+    return element(by.css('.properties-block')).element(by.model('property.default')).getAttribute('value');
 };
 
 exports.openDefinitionsImplementationModalEditor = function(){

@@ -91,7 +91,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickProperty(1);//click inlineType property
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(true);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(2))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(true);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -102,7 +102,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickProperty(1);//click on the same property
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(true);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(2))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(true);//description field btn should be displayed
 
             browser.sleep(200).then(done);
@@ -111,7 +111,7 @@ describe('inlineTypes section', function() {
         it('should not rename field if click esc but should switch off edit mode', function(done) {
 
             components.definitions.types.renameProperty('New_property_5', 'key', 1);//rename inlineType property
-            components.definitions.types.renameProperty('default', 'default', 3);//rename inlineType property
+            components.definitions.types.renameProperty('default', 'default', 1);//rename inlineType property
             components.definitions.types.renameProperty('description', 'description', 1);//rename inlineType property
 
             components.definitions.types.clickEscBtn();
@@ -122,9 +122,9 @@ describe('inlineTypes section', function() {
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(false);//key field should be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(2))).toBe(false);//default field btn should be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should be displayed (we use autocomplete and he duplicate input)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(false);//description field btn should be displayed
-
+            console.log(10);
             browser.sleep(200).then(done);
         });
 
@@ -133,7 +133,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickProperty(1);//click inlineType property
 
             components.definitions.types.renameProperty('New_property_5', 'key', 1);//rename inlineType property
-            components.definitions.types.renameProperty('default', 'default', 3);//rename inlineType property
+            components.definitions.types.renameProperty('default', 'default', 1);//rename inlineType property
             components.definitions.types.renameProperty('description', 'description', 1);//rename inlineType property
 
             components.definitions.types.clickProperty(0);//click inlineType property
@@ -144,11 +144,11 @@ describe('inlineTypes section', function() {
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(false);//key field should not be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(2))).toBe(false);//default field btn should not be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should not be displayed (we use autocomplete and he duplicate input)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(false);//description field btn not should be displayed
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(0))).toBe(true);//key field should be displayed (first property)
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input) (first property)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(0))).toBe(true);//default field btn should be displayed (we use autocomplete and he duplicate input) (first property)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(0))).toBe(true);//description field btn should be displayed (first property)
 
             browser.sleep(200).then(done);
@@ -159,7 +159,7 @@ describe('inlineTypes section', function() {
             components.definitions.types.clickProperty(1);//click inlineType property
 
             components.definitions.types.renameProperty('New_property_5', 'key', 1);//rename inlineType property
-            components.definitions.types.renameProperty('default', 'default', 3);//rename inlineType property
+            components.definitions.types.renameProperty('default', 'default', 1);//rename inlineType property
             components.definitions.types.renameProperty('description', 'description', 1);//rename inlineType property
 
             components.definitions.types.clickEnterBtn();//click inlineType property
@@ -170,7 +170,7 @@ describe('inlineTypes section', function() {
 
 
             expect(components.layout.isElementDisplayed(element.all(by.model('property.key')).get(1))).toBe(false);//key field should not be displayed
-            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(2))).toBe(false);//default field btn should not be displayed (we use autocomplete and he duplicate input)
+            expect(components.layout.isElementDisplayed(element.all(by.model('property.default')).get(1))).toBe(false);//default field btn should not be displayed (we use autocomplete and he duplicate input)
             expect(components.layout.isElementDisplayed(element.all(by.model('property.description')).get(1))).toBe(false);//description field btn not should be displayed
 
             browser.sleep(200).then(done);
@@ -294,6 +294,8 @@ describe('inlineTypes section', function() {
             expect(components.layout.isElementDisplayed(element.all(by.cssContainingText('.nameEditError', 'Interface name already in use. Please select a different name.')).get(1))).toBe(true);//interface name error msg should appears
             expect(element(by.cssContainingText('.btn-primary', 'Save')).getAttribute('disabled')).toBe('true');//save btn should be disabled
 
+            console.log(20);
+
             browser.sleep(200).then(done);
 
         });
@@ -379,9 +381,8 @@ describe('inlineTypes section', function() {
         });
 
         it('should not rename field if click esc but should switch off edit mode', function(done) {
-
             components.definitions.types.renameOperation('New_operation_10','operation ', 0);//rename operation
-            components.definitions.types.renameOperation('implementation','implementation ', 1);//rename implementation
+            components.definitions.types.renameOperation('implementation','implementation ', 0);//rename implementation
             //
             components.definitions.types.clickEscBtn();
 
@@ -399,7 +400,7 @@ describe('inlineTypes section', function() {
 
             components.definitions.types.clickOperation(2);//click inlineType operation
             components.definitions.types.renameOperation('New_operation_10', 'operation ', 0);//rename operation
-            components.definitions.types.renameOperation('implementation', 'implementation ', 1);//rename implementation
+            components.definitions.types.renameOperation('implementation', 'implementation ', 0);//rename implementation
 
             components.definitions.types.clickOperation(3);//click inlineType interface
 
@@ -421,7 +422,7 @@ describe('inlineTypes section', function() {
 
             components.definitions.types.clickOperation(2);//click inlineType operation
             components.definitions.types.renameOperation('New_operation_10', 'operation ', 0);//rename operation
-            components.definitions.types.renameOperation('implementation', 'implementation ', 1);//rename implementation
+            components.definitions.types.renameOperation('implementation', 'implementation ', 0);//rename implementation
 
             components.definitions.types.clickEnterBtn();
 
@@ -432,6 +433,9 @@ describe('inlineTypes section', function() {
             expect(components.layout.isElementDisplayed(element.all(by.repeater('item in interface.data track by $index')).get(2).all(by.model('item.implementation ')).get(0))).toBe(false);//implementation field should not be displayed
 
             components.definitions.types.closeType();//push cancel button
+
+            console.log(30);
+
             browser.sleep(200).then(done);
         });
 
@@ -603,14 +607,16 @@ describe('inlineTypes section', function() {
 
 
             components.definitions.types.clickProperty(0);//click inlineType property
-            components.definitions.types.renameProperty('new default value', 'default', 1);//rename inlineType property
+            components.definitions.types.renameProperty('new default value', 'default', 0);//rename inlineType property
             components.definitions.types.clickEnterBtn();
 
             expect(element.all(by.repeater('property in data track by $index')).get(0).all(by.css('.select-input-height')).get(1).getText()).toBe('new default value');
 
             components.definitions.types.saveType();//save inlineType view
 
-            browser.sleep(2000).then(done);
+            console.log(40);
+
+            browser.sleep(200).then(done);
         });
         it('should not set default value in property on the edit page', function(done) {
             components.definitions.types.openSavedType(0);//open saved inlineType view
