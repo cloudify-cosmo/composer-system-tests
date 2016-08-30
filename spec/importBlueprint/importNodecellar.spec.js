@@ -36,7 +36,7 @@ describe('importBlueprint section', function() {
             components.topology.page.openNode(0);
             expect(element(by.css('.nodeName')).getText()).toBe('host');
             expect(element(by.css('.install_agent')).getAttribute('value')).toBe('false');
-            expect(element(by.css('.ip')).getAttribute('value')).toBe('{"get_input":"host_ip"}');
+            expect(element(by.css('.ip')).getAttribute('value')).toBe('{get_input: host_ip}');
             components.topology.page.closeNode();
             browser.sleep(200).then(done);
         });
