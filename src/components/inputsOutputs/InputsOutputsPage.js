@@ -12,7 +12,7 @@ exports.submitInputOrOutput = function(el){
   return el.$('[ng-click="addField()"]').click();
 };
 exports.deleteInputOrOutput = function(el){
-  return el.$('[ng-click="checkRemoveField(key,field)"]').click();
+  return el.$('[delete-confirm="checkRemoveField(key,field)"]').click();
 };
 
 exports.setInputOrOutputFields = function(el, type){
