@@ -133,7 +133,7 @@ describe('inputsOutputs page', function() {
       components.definitions.page.clickEnterBtn();
       components.definitions.page.saveInlineTypeElement();//save inline type
 
-      browser.sleep(2000).then(done);
+      browser.sleep(200).then(done);
     });
 
     it('should not remove input name in outputs value, node property and inlineTypes property field', function(done) {
