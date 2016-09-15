@@ -8,6 +8,10 @@ const _ = require('lodash');
  *
  **/
 
+exports.checkPropertyFieldType = function(number) {
+  return element.all(by.repeater('(prop, propValue) in data.selectedNode.defaultData.properties')).get(number).element(by.css('.propType')).getAttribute('tooltip');
+};
+
 exports.findSpecificNodeContainerOnTopologyPage = function(importType, conteinerName) {
   return element(by.cssContainingText('.stencil-type', importType)).element(by.xpath('../../..')).element(by.cssContainingText('.name', conteinerName));
 };
@@ -56,8 +60,11 @@ exports.removeInstances = function() {
   return element(by.model('data.selectedNode.templateData.instances.deploy')).clear();
 };
 
-exports.setPropertyValue = function(value) {
-  return element.all(by.css('.propsContainer .propData')).get(0).clear().sendKeys(value);
+exports.setPropertyValue = function(value, number) {
+  if (!number) {
+    number = 0;
+  }
+  return element.all(by.css('.propsContainer .propData')).get(number).clear().sendKeys(value);
 };
 
 exports.getPropertyValue = function() {
@@ -65,7 +72,7 @@ exports.getPropertyValue = function() {
 };
 
 exports.openPropertyModalEditor = function() {
-  $$('[ng-click="showPropEditor(prop,data.selectedNode.templateData.properties[prop])"]').get(0).click();
+  $$('[ng-click="showPropEditor(prop,data.selectedNode.templateData.properties[prop],propValue.type)"]').get(0).click();
   return browser.sleep(400);
 };
 

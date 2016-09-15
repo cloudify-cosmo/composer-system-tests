@@ -1,11 +1,13 @@
 
 'use strict';
 
-exports.clickNo = function(){
-    return element(by.css('.popover .cancelBtn')).click();
+exports.clickNo = function(number){
+    if(!number){number = 0;}
+    return element.all(by.css('.popover .cancelBtn')).get(number).click();
 };
-exports.clickYes = function(){
-    return element(by.css('.popover .okBtn')).click();
+exports.clickYes = function(number){
+    if(!number){number = 0;}
+    return element.all(by.css('.popover .okBtn')).get(number).click();
 };
 
 

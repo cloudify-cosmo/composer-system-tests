@@ -11,7 +11,6 @@ describe('topology page', function() {
     browser.sleep(2000);
   });
 
-
   describe('add and save node', function() {
     it('should add save node', function(done) {
 
@@ -57,8 +56,6 @@ describe('topology page', function() {
       components.topology.page.setInstances(5);
       components.topology.page.closeNode();
 
-      //expect(element(by.css('.plannedInstances')).getText()).toBe('5');//instance has been set
-
       browser.sleep(2000).then(done);
     });
     it('should remove instance number', function(done) {
@@ -84,7 +81,7 @@ describe('topology page', function() {
     it('properties for node docker should exist', function(done) {
 
       components.topology.page.openNode(0);
-      expect(element.all(by.css('.propsContainer .propData')).count()).toBe(3);
+      expect(element.all(by.css('.propsContainer .propData')).count()).toBe(2);
 
       components.topology.page.closeNode();
 
@@ -137,8 +134,6 @@ describe('topology page', function() {
       components.modals.modal.done();//click done in editor modal
 
       expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('new editor value');//text should exist after save modal editor
-
-      console.log(10);
 
       browser.sleep(200).then(done);
     });
@@ -269,7 +264,7 @@ describe('topology page', function() {
       //add node on topology page
       components.topology.page.drawConnectorLine(element.all(by.css('.nodeContainer')).get(0), element.all(by.css('.nodeContainer')).get(1));
       expect(element.all(by.css('.connectorLine')).count()).toBe(1);
-      console.log(20);
+
       browser.sleep(200).then(done);
 
     });
@@ -384,7 +379,7 @@ describe('topology page', function() {
 
       expect(components.layout.isElementDisplayed(element.all(by.css('.securityGroupsList')).get(0))).toBe(true);//show Security Group list
       expect(element.all(by.css('.securityGroupsList')).get(0).all(by.css('li')).count()).toBe(1);//Security Group has been added
-      console.log(30);
+
       browser.sleep(200).then(done);
     });
     it('should not add Security Group with the same name', function(done) {
@@ -449,10 +444,56 @@ describe('topology page', function() {
       components.topology.page.pushRemoveVirtualIpBtn();
 
       expect(components.layout.isElementDisplayed(element.all(by.css('.securityGroupsList')).get(1))).toBe(false);//hide Virtual Ip list
-
+      components.topology.page.closeNode();
       browser.sleep(200).then(done);
     });
   });
 
+  describe('inputs TOSCA data types', function() {
+    it('should add node with (string, integer and boolean) types', function(done) {
+      //add node on topology page
+      var dragItem = components.topology.page.findSpecificNodeContainerOnTopologyPage('cloudify.nodes', 'FileSystem');
+      var dragDest = {x: 305, y: -135};
+      components.layout.dragAndDrop(dragItem, dragDest);//add node
 
+      components.topology.page.openNode(3);
+
+      expect(components.topology.page.checkPropertyFieldType(1)).toBe('The type is : string');
+      expect(components.topology.page.checkPropertyFieldType(2)).toBe('The type is : integer');
+      expect(components.topology.page.checkPropertyFieldType(3)).toBe('The type is : boolean');
+
+      browser.sleep(200).then(done);
+    });
+    it('should check string type', function(done) {
+
+      components.topology.page.setPropertyValue('string', 1);
+      expect(element.all(by.css('.propsContainer .propData')).get(1).getAttribute('value')).toBe('string');//text should exist
+
+      components.topology.page.setPropertyValue(555, 1);
+      expect(element.all(by.css('.propsContainer .propData')).get(1).getAttribute('value')).toBe('555');//text should exist
+
+      browser.sleep(200).then(done);
+    });
+    it('should check integer type', function(done) {
+
+      components.topology.page.setPropertyValue('string', 2);
+      expect(element.all(by.css('.propsContainer .propData')).get(2).getAttribute('value')).toBe('');//text should not exist
+
+      components.topology.page.setPropertyValue(555, 2);
+      expect(element.all(by.css('.propsContainer .propData')).get(2).getAttribute('value')).toBe('555');//text should exist
+
+      browser.sleep(200).then(done);
+    });
+    it('should check boolean type', function(done) {
+
+      expect(components.layout.isElementDisplayed(element.all(by.repeater('(prop, propValue) in data.selectedNode.defaultData.properties')).get(3).element(by.css('.prop-dropdown')))).toBe(true);//should appears second dropdown
+      expect($$('.prop-dropdown').get(0).all(by.repeater('data in list')).count()).toBe(2);
+      expect(element.all(by.repeater('(prop, propValue) in data.selectedNode.defaultData.properties')).get(3).element(by.css('.prop-dropdown')).getText('dropdown-toggle')).toBe('false');//text should exist
+      components.layout.openDropdown(0);
+      components.layout.selectDropdownType('true');
+      expect(element.all(by.repeater('(prop, propValue) in data.selectedNode.defaultData.properties')).get(3).element(by.css('.prop-dropdown')).getText('dropdown-toggle')).toBe('true');//text should exist
+
+      browser.sleep(200).then(done);
+    });
+  });
 });
