@@ -56,7 +56,8 @@ exports.cancelUsingSelector = function(){
 };
 
 exports.enterFilePath = function(url){
-   return $('input[type="file"]').sendKeys(url);
+    return $('input[type="file"]').sendKeys(url);
+    // doesn't work for phantomjs getting: "A Jasmine spec timed out. Resetting the WebDriver Control Flow." // see issue : https://github.com/ariya/phantomjs/issues/10993
 };
 
 
