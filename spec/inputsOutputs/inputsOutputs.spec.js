@@ -143,6 +143,10 @@ describe('inputsOutputs page', function() {
       expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
 
       components.popovers.popover.clickNo();//click no btn
+      // browser.pause();
+
+      expect(element(by.css('.popover')).isDisplayed()).toBeFalsy();//popover should hide
+      //expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(false);
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
