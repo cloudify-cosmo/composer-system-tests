@@ -79,7 +79,8 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
+
       components.popovers.popover.clickYes();//click no btn
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
@@ -91,7 +92,8 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
+
       components.popovers.popover.clickYes();//click no btn
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
@@ -133,20 +135,18 @@ describe('inputsOutputs page', function() {
       components.definitions.page.clickEnterBtn();
       components.definitions.page.saveInlineTypeElement();//save inline type
 
-      browser.sleep(2000).then(done);
+      browser.sleep(200).then(done);
     });
 
     it('should not remove input name in outputs value, node property and inlineTypes property field', function(done) {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
 
       components.popovers.popover.clickNo();//click no btn
-      // browser.pause();
-
-      expect(element(by.css('.popover')).isDisplayed()).toBeFalsy();//popover should hide
-      //expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(false);
+      browser.sleep(200);
+      expect(element(by.css('.popover')).isPresent()).toBe(false);
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
@@ -169,7 +169,7 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
 
       components.popovers.popover.clickYes();//push 'Yes' btn
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//input should be removed
