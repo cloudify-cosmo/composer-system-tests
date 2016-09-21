@@ -30,7 +30,6 @@
     "$" : false,
     "jasmine" : false,
     "$$": false,
-    "expect" : false,
-    "xit" : false
+    "expect" : false
   }
 }

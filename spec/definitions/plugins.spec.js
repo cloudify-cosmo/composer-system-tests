@@ -16,6 +16,7 @@ describe('plugins section', function() {
 
     describe('add/remove plugin', function() {
         //won't work on phantomjs
+        /* jshint ignore:start */
         xit('should add plugin by file zip path', function (done) {
             components.definitions.page.openUploadPluginDialog();
             components.modals.modal.enterName('tested-plugin');
@@ -94,7 +95,7 @@ describe('plugins section', function() {
 
             browser.sleep(200).then(done);
         });
-
+        /* jshint ignore:end */
 
         it('should add plugin by https', function (done) {
             components.definitions.page.openUploadPluginDialog();
@@ -169,7 +170,6 @@ describe('plugins section', function() {
             components.resources.page.openFolder(0);
             expect(element(by.cssContainingText('.name span', 'tested-plugin')).isDisplayed()).toBe(true);//folder with plugin name should exist
             components.resources.page.renameItem(2, 'newName');
-            browser.sleep(300);
             expect(element(by.cssContainingText('.name span', 'newName')).isDisplayed()).toBe(true);//folder was renamed
             components.layout.goToDefinitions();
             expect(components.definitions.page.getPluginInfo(0, 0)).toBe('newName'); //Check plugin name
