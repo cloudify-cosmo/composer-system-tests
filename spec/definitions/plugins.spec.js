@@ -1,7 +1,6 @@
 'use strict';
 var logger = browser.getLogger('plugins.spec');
 var components = require('../../src/components');
-var path = require('path');
 
 describe('plugins section', function() {
     describe('login', function() {
