@@ -7,6 +7,10 @@ exports.clickNo = function(){
 exports.clickYes = function(){
     return element(by.css('.popover .okBtn')).click();
 };
-
+exports.isPopoverDisplayed = function(){
+    return element(by.css('.popover')).isDisplayed().then(function(result) {
+        return result;
+    });
+};
 
 

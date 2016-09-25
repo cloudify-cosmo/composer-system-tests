@@ -79,8 +79,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
-      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
-
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
       components.popovers.popover.clickYes();//click no btn
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
@@ -92,8 +91,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
-      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
-
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
       components.popovers.popover.clickYes();//click no btn
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
@@ -142,8 +140,7 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
-
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
       components.popovers.popover.clickNo();//click no btn
       expect(element(by.css('.popover')).isPresent()).toBeFalsy();
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
@@ -166,7 +163,7 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();//popover should show up
 
       components.popovers.popover.clickYes();//push 'Yes' btn
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//input should be removed
