@@ -145,20 +145,17 @@ describe('inputsOutputs page', function() {
       expect((element(by.css('.popover')).isDisplayed())).toBeTruthy();//popover should show up
 
       components.popovers.popover.clickNo();//click no btn
-      browser.sleep(200);
-      expect(element(by.css('.popover')).isPresent()).toBe(false);
+      expect(element(by.css('.popover')).isPresent()).toBeFalsy();
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
 
       components.topology.page.openNode();
-      components.topology.page.setPropertyValue('{"get_input":"name"}');
       expect(element.all(by.css('.propertiesContainer .propItem .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
 
       components.layout.goToDefinitions();
 
       components.definitions.page.clickEditButton();//click edit button
-      components.definitions.page.showHiddenInputs();//click on field to show hidden inputs
       expect(components.definitions.page.getPropertyDescription()).toBe('{ "get_input" : "name"}');//text should exist
 
       browser.sleep(200).then(done);
