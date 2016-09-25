@@ -15,7 +15,6 @@ describe('inputsOutputs page', function() {
     components.layout.goToInputsOutputs();
   });
 
-
   describe('add input and output', function() {
 
     it('should not add input with empty name', function(done) {
@@ -72,6 +71,7 @@ describe('inputsOutputs page', function() {
 
     });
   });
+
   describe('remove input and output', function() {
 
     it('should remove input', function(done) {
@@ -79,6 +79,8 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
+      components.popovers.popover.clickYes();
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
 
@@ -89,10 +91,15 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
+      components.popovers.popover.clickYes();
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
 
     });
+  });
+
+  describe('remove input and output and validate node property and inlineTypes property', function() {
 
     it('should set input name in outputs value, node property and inlineTypes property field', function(done) {
 
@@ -133,23 +140,19 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
-
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
       components.popovers.popover.clickNo();//click no btn
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(false);//popover should hide
+      expect(element(by.css('.popover')).isPresent()).toBeFalsy();
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
+
       components.topology.page.openNode();
-
-      expect(element.all(by.css('.propsContainer .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
-
-      browser.sleep(200);
+      expect(element.all(by.css('.propertiesContainer .propItem .propData')).get(0).getAttribute('value')).toBe('{"get_input":"name"}');//text should exist
 
       components.layout.goToDefinitions();
 
       components.definitions.page.clickEditButton();//click edit button
-
       expect(components.definitions.page.getPropertyDescription()).toBe('{ "get_input" : "name"}');//text should exist
 
       browser.sleep(200).then(done);
@@ -160,10 +163,9 @@ describe('inputsOutputs page', function() {
       components.layout.goToInputsOutputs();
 
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
-      expect(components.layout.isElementDisplayed(element(by.css('.popover')))).toBe(true);//popover should show up
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();//popover should show up
 
       components.popovers.popover.clickYes();//push 'Yes' btn
-      expect(components.layout.isElementPresent(element(by.css('.popover')))).toBe(false);//popover should be hide
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//input should be removed
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//output should exist
       expect(components.inputsOutputs.page.getOutputValue(outputElement)).toBe('');//output value field should be empty
@@ -182,22 +184,22 @@ describe('inputsOutputs page', function() {
   });
 
   describe('save inputs and outputs', function() {
-     it('should show input and output after save and page refresh', function(done){
-       components.layout.goToInputsOutputs();
+    it('should show input and output after save and page refresh', function(done){
+      components.layout.goToInputsOutputs();
 
-       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
-       components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
-       components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
-       components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
+      components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
+      components.inputsOutputs.page.setInputOrOutputFields(inputElement, 'input');//fill fields
+      components.inputsOutputs.page.submitInputOrOutput(outputElement);//submit
+      components.inputsOutputs.page.submitInputOrOutput(inputElement);//submit
 
-       components.layout.saveBlueprint();//click save blueprint button
+      components.layout.saveBlueprint();//click save blueprint button
 
-       browser.refresh();
-       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//input should exist
-       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//output should exist
+      browser.refresh();
+      expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//input should exist
+      expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//output should exist
 
-       browser.sleep(200).then(done);
+      browser.sleep(200).then(done);
 
-     });
+    });
   });
 });
