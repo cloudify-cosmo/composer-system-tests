@@ -14,7 +14,7 @@ describe('plugins section', function() {
     });
 
     describe('add/remove plugin', function() {
-        //won't work on phantomjs
+        //won't work on phantomjs https://cloudifysource.atlassian.net/browse/COMPOSER-366
         /* jshint ignore:start */
         xit('should add plugin by file zip path', function (done) {
             components.definitions.page.openUploadPluginDialog();
