@@ -80,7 +80,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.submitInputOrOutput(inputElement);//add
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');//remove element
       expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
-      components.popovers.popover.clickYes();//click no btn
+      components.popovers.popover.clickYes();
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
 
@@ -92,7 +92,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.submitInputOrOutput(outputElement); //add
       components.inputsOutputs.page.deleteInputOrOutput(outputElement, 'output');//remove element
       expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
-      components.popovers.popover.clickYes();//click no btn
+      components.popovers.popover.clickYes();
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(0);//should be removed
       browser.sleep(200).then(done);
 
