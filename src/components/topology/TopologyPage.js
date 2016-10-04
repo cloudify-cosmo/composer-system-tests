@@ -16,14 +16,16 @@ exports.openNode = function(number) {
   if (!number) {
     number = 0;
   }
-  return element.all(by.css('.nodeContainer')).get(number).click();
+  element.all(by.css('.nodeContainer')).get(number).click();
+  return browser.sleep(800);
 };
 
 exports.openConnector = function(number) {
   if (!number) {
     number = 0;
   }
-  return element.all(by.css('.connectorContainer')).get(number).all(by.css('.connectorPoints')).get(1).click();
+  element.all(by.css('.connectorContainer')).get(number).all(by.css('.connectorPoints')).get(1).click();
+  return browser.sleep(800);
 };
 
 exports.changeConnectorType = function(number, name) {
@@ -36,7 +38,7 @@ exports.changeConnectorType = function(number, name) {
 
 exports.closeNode = function() {
   element.all(by.css('.icon-closed')).get(0).click();
-  return browser.sleep(400);
+  return browser.sleep(800);
 };
 
 exports.deleteNode = function() {
@@ -81,7 +83,8 @@ exports.searchElementInRepeat = function(el, repeat) {
 };
 
 exports.selectContainedInConnection = function() {
-  return $('[ng-click="selectContainedInConnection()"]').click();
+  element(by.css('[ng-click="selectContainedInConnection()"]')).click();
+  return browser.sleep(800);
 };
 
 exports.openNodeSection = function(number) {

@@ -23,6 +23,6 @@
     "jasmine-reporters": "~1.0.2"
   },
   "scripts": {
-    "install": "node ./node_modules/protractor/bin/webdriver-manager update"
+    "postinstall": "node ./node_modules/protractor/bin/webdriver-manager update"
   }
 }

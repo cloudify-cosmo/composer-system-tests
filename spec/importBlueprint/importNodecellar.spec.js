@@ -1,33 +1,38 @@
 'use strict';
 
+var logger = browser.getLogger('importNodecellar.spec');
 const components = require('../../src/components');
-const path = require('path');
 
 describe('importBlueprint section', function() {
-    describe('login', function() {
-        browser.get('/');
-
-        components.login.login('user-' + new Date().getTime());
-        // navigate to definitions tab
-        browser.sleep(1000);
-
-        components.layout.goToTopology();
+    beforeAll(function() {
+        logger.info('import nodecellar spec');
     });
 
-    describe('should import nodecellar blueprint', function() {
+    describe('login', function() {
+        it('should log in', function(done) {
+            browser.get('/');
+            browser.sleep(2000);
+            components.login.login('user-' + (new Date().getTime()));
+            browser.sleep(2000).then(done);
+        });
+    });
+
+    describe('nodecellar blueprint', function() {
+        beforeEach(function(done) {
+            components.layout.goToTopology();
+            browser.sleep(2000).then(done);
+        });
         it('should import nodecellar blueprint', function(done) {
-            components.layout.addSystemTestSupport();
+            var nodes = by.css('.nodeContainer');
+
             components.importBlueprint.page.openImportModal();
-
             components.modals.modal.enterName('nodecellar');
-            var fileToUpload = '../../src/components/importBlueprint/nodecellar.tar.gz',
-                absolutePath = path.resolve(__dirname, fileToUpload);//get path to file
-            $('.systemTestSupport input[type="file"]').sendKeys(absolutePath);
-
+            components.modals.modal.enterUrl('https://github.com/cloudify-cosmo/composer-system-tests/blob/master/src/components/importBlueprint/nodecellar.tar.gz?raw=true');
             components.modals.modal.save();
-            browser.sleep(3000);
 
-            expect(element.all(by.css('.nodeContainer')).count()).toBe(4);
+            browser.wait(function() { return browser.isElementPresent(nodes); }, 10000);
+
+            expect(element.all(nodes).count()).toBe(4);
             expect(element.all(by.css('.connectorLine')).count()).toBe(1);
             expect(element(by.css('.headTitle')).getText()).toBe('nodecellar');
             browser.sleep(200).then(done);
@@ -44,8 +49,7 @@ describe('importBlueprint section', function() {
             components.layout.goToInputsOutputs();
             expect(components.inputsOutputs.page.countInputsOrOutputs(element(by.css('.blueprint-inputs')))).toBe(1);
             expect(components.inputsOutputs.page.countInputsOrOutputs(element(by.css('.blueprint-outputs')))).toBe(1);
-            components.layout.goToTopology();
-            browser.sleep(2000).then(done);
+            browser.sleep(200).then(done);
         });
         it('should check nodecellar relationships', function(done) {
             components.topology.page.openConnector(0);
