@@ -15,16 +15,15 @@ var capabilities = {
 };
 
 var timeout = parseInt(process.env.TIMEOUT || "600000",10);
+var browser = process.env.BROWSER_TYPE;
 
-if ( !!process.env.BROWSER_TYPE ) {
-    if ( process.env.BROWSER_TYPE.toLowerCase() === 'phantomjs') {
-        capabilities = {
-            'browserName': 'phantomjs',
-            'platform': 'ANY',
-            'version': '',
-            //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
-            'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false'/*, '--remote-debugger-port=9090'*/]
-        }
+if (browser && browser.toLowerCase() === 'phantomjs') {
+    capabilities = {
+        'browserName': 'phantomjs',
+        'platform': 'ANY',
+        'version': '',
+        //'phantomjs.cli.args': ['--ignore-ssl-errors=true',  '--web-security=false', '--webdriver-loglevel=DEBUG','--debug=true']
+        'phantomjs.cli.args': ['--ignore-ssl-errors=true', '--web-security=false'/*, '--remote-debugger-port=9090'*/]
     }
 }
 

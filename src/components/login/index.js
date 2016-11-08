@@ -2,13 +2,13 @@
 
 exports.login = function(username){
     exports.setUsername(username);
-    return exports.submit();
+    exports.submit();
 };
 
 exports.setUsername = function(username){
-    return element(by.model('user.name')).sendKeys(username);
+    element(by.model('user.name')).sendKeys(username);
 };
 
 exports.submit = function(){
-    return $('[ng-click="login()"]').click();
+    element(by.css('[ng-click="login()"]')).click();
 };
