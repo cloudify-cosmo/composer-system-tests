@@ -14,7 +14,7 @@ sudo yum install -y git wget
 
 export PROJECT_NAME="composer-system-tests"
 export GIT_DEST="`pwd`/${PROJECT_NAME}"
-export GIT_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/guy-mograbi-at-gigaspaces/${PROJECT_NAME}.git"
+export GIT_URL="https://$GITHUB_USER:$GITHUB_TOKEN@github.com/cloudify-cosmo/${PROJECT_NAME}.git"
 
 echoerr() { echo "$@" 1>&2; }
 
@@ -82,7 +82,7 @@ pushd ${GIT_DEST}
     ( nvm install &> /dev/null ) || echo "unable to install using nvm"
 
     echo "installing build-helper"
-    npm -g install guy-mograbi-at-gigaspaces/cloudify-ui-build-helper
+    npm -g install cloudify-cosmo/cloudify-ui-build-helper
 #    echo "creating build tag"
 #    create-and-push-build-tag
     source get-artifacts-files
