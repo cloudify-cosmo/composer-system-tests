@@ -8,8 +8,8 @@ describe('inputsOutputs page', function() {
 
   describe('login',function() {
     browser.get('/');
+    components.login.loginDefault();
 
-    components.login.login('user-' + new Date().getTime());
     // navigate to inputs outputs tab
     browser.sleep(2000);
     components.layout.goToInputsOutputs();
@@ -142,7 +142,7 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.deleteInputOrOutput(inputElement, 'input');// try to delete input
       expect(components.popovers.popover.isPopoverDisplayed()).toBeTruthy();
       components.popovers.popover.clickNo();//click no btn
-      expect(element(by.css('.popover')).isPresent()).toBeFalsy();
+      expect(components.popovers.popover.isPopoverDisplayed()).toBeFalsy();
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//input should exist
 
       components.layout.goToTopology();
@@ -199,7 +199,6 @@ describe('inputsOutputs page', function() {
       expect(components.inputsOutputs.page.countInputsOrOutputs(inputElement)).toBe(1);//output should exist
 
       browser.sleep(200).then(done);
-
     });
   });
 });

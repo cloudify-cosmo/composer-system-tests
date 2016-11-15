@@ -6,9 +6,7 @@ const path = require('path');
 describe('importBlueprint section', function() {
     describe('login', function() {
         browser.get('/');
-
-        components.login.login('user-' + new Date().getTime());
-        // navigate to definitions tab
+        components.login.loginDefault();
         browser.sleep(1000);
 
         components.layout.goToTopology();
@@ -36,7 +34,10 @@ describe('importBlueprint section', function() {
             components.topology.page.openNode(0);
             expect(element(by.css('.nodeName')).getText()).toBe('host');
             expect(element(by.css('.install_agent')).getAttribute('value')).toBe('false');
-            expect(element(by.css('.ip')).getAttribute('value')).toBe('{get_input: host_ip}');
+            //needs to trim the value since it has a new line added https://cloudifysource.atlassian.net/browse/COMPOSER-426
+            element(by.css('.ip')).getAttribute('value').then((value)=>{
+                expect(value.trim()).toBe('get_input: host_ip');
+            });
             components.topology.page.closeNode();
             browser.sleep(200).then(done);
         });

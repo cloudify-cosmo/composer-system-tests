@@ -7,8 +7,7 @@ var components = require('../../src/components');
 describe('imports section', function() {
     describe('login', function() {
         browser.get('/');
-
-        components.login.login('user-' + new Date().getTime());
+        components.login.loginDefault();
         // navigate to definitions tab
         browser.sleep(1000);
         logger.info('navigate to imports tab');
@@ -52,6 +51,7 @@ describe('imports section', function() {
         });
 
     });
+
     describe('node types field', function() {
         it('node types should exist', function(done) {
             expect(components.layout.countElements(element.all(by.repeater('nodeType in globals.stencils.nodeTypes')))).toBe(62);//default amount of node types

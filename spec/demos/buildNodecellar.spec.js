@@ -7,8 +7,7 @@ describe('Nodecellar', () => {
   it('should login', () => {
 
     browser.get('/');
-    components.login.login('user-' + new Date().getTime());
-
+    components.login.loginDefault();
   });
 
   it('should import nodecellar types', (done) => {
@@ -19,6 +18,7 @@ describe('Nodecellar', () => {
     components.modals.modal.enterUrl(TYPES_URL, 'imports');
     // save stencil
     components.modals.modal.save();
+    components.layout.goToTopology();
 
     browser.sleep(1000).then(done);
   });

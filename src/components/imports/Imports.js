@@ -18,7 +18,7 @@ exports.orderByNodeType = function(){
 };
 
 exports.openAddImportsDialog = function(){
-    return $('[ng-click="openAddImportsModal()"]').click();
+    return $('.add-new-type').click();
 };
 
 exports.checkFirstNodeType = function(){

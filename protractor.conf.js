@@ -1,5 +1,6 @@
 // in case of new env and missing: /node_modules/protractor/selenium/chromedriver.exe run:
 // node_modules/protractor/bin/webdriver-manager update
+// If chrome crashes without running tests, make sure you have chromedriver installed. I installed it globally with npm install -g chromedriver
 
 var capabilities = {
     'browserName': 'chrome',

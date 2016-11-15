@@ -55,7 +55,7 @@ exports.setDefaultValue = function(){
 };
 
 exports.saveInlineTypeElement = function(){
-    return element(by.css('.btn-primary')).click();
+    return element(by.css('#configInlineTypeDialog .pull-right .btn-primary')).click();
 };
 
 exports.clickEditButton = function(){
