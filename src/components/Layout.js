@@ -86,3 +86,13 @@ exports.addSystemTestSupport = function(){
         browser.sleep(3000);
     });
 };
+
+exports.acceptAlert = function(){
+    browser.sleep(1000);
+    if(browser.browserName === 'chrome'){
+        browser.switchTo().alert().accept();
+    }
+    else if(browser.browserName === 'phantomjs'){
+        browser.executeScript('window.confirm = function() {return true;}');
+    }
+};

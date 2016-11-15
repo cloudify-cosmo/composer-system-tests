@@ -42,7 +42,8 @@ describe('imports section', function() {
             browser.sleep(200).then(done);
         });
         it('should add import by url', function(done) {
-            browser.refresh();
+            browser.driver.navigate().refresh();
+            components.layout.acceptAlert();
             components.imports.page.openAddImportsDialog();
             components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml', 'imports');
             components.modals.modal.save();
