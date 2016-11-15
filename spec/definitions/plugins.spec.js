@@ -5,8 +5,7 @@ var components = require('../../src/components');
 describe('plugins section', function() {
     describe('login', function() {
         browser.get('/');
-
-        components.login.login('user-' + new Date().getTime());
+        components.login.loginDefault();
         // navigate to definitions tab
         browser.sleep(1000);
         logger.info('navigate to definitions tab');
