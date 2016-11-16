@@ -6,7 +6,9 @@ console.log('node path changed');
 
 beforeEach(function(){
     browser.driver.manage().window().maximize();
-
+    browser.getCapabilities().then(function(cap) {
+        browser.browserName = cap.get('browserName');
+    });
 });
 
 browser.getLogger = function(name){

@@ -66,9 +66,9 @@ describe('inputsOutputs page', function() {
       components.inputsOutputs.page.setInputOrOutputFields(outputElement, 'output');//fill fields
       components.inputsOutputs.page.submitInputOrOutput(outputElement);//add
       expect(components.inputsOutputs.page.countInputsOrOutputs(outputElement)).toBe(1);//new field should not be added
-      browser.refresh();
+      browser.driver.navigate().refresh();
+      components.layout.acceptAlert();
       browser.sleep(200).then(done);
-
     });
   });
 
