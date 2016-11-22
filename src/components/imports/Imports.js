@@ -28,9 +28,5 @@ exports.checkFirstNodeType = function(){
 };
 
 exports.findSpecificUsedOnImportsPage = function(){
-    return element(by.cssContainingText('.nodeType','cloudify.docker.Container')).element(by.xpath('..')).element(by.css('.action span'));
-};
-
-exports.findSpecificUrl = function(){
-    return element(by.cssContainingText('.importsList .item-block','http://getcloudify.org.s3.amazonaws.com/spec/docker-plugin/1.3.1/plugin.yaml'));
+    return element(by.cssContainingText('.nodeType','cloudify.chef.nodes.WebServer')).element(by.xpath('..')).element(by.css('.action span'));
 };
