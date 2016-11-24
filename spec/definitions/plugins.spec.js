@@ -12,6 +12,15 @@ describe('plugins section', function() {
         components.layout.goToDefinitions();
     });
 
+    describe('UI interactions', function() {
+        it('disabled save button, name field is required', function (done) {
+            components.definitions.page.openUploadPluginDialog();
+            expect(element(by.cssContainingText('.btn-primary', 'Save')).getAttribute('disabled')).toBe('true');//save btn should be disabled
+            components.modals.modal.dismiss();
+            browser.sleep(200).then(done);
+        });
+    });
+
     describe('add/remove plugin', function() {
         //won't work on phantomjs https://cloudifysource.atlassian.net/browse/COMPOSER-366
         /* jshint ignore:start */
@@ -97,16 +106,16 @@ describe('plugins section', function() {
 
         it('should add plugin by https', function (done) {
             components.definitions.page.openUploadPluginDialog();
-            components.modals.modal.enterName('tested-plugin2');
+            components.modals.modal.enterName('tested-plugin-name');
             components.modals.modal.enterUrl('https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/master.zip');
             components.modals.modal.save();
             expect(components.definitions.page.countPlugins()).toBe(1);
+            components.definitions.page.deletePlugins(0);
             browser.sleep(200).then(done);
         });
         it('should add plugin by http', function (done) { //
-            components.definitions.page.deletePlugins(0);//delete tested-plugin2 plugin
             components.definitions.page.openUploadPluginDialog();
-            components.modals.modal.enterName('tested-plugin2');
+            components.modals.modal.enterName('tested-plugin-name2');
             components.modals.modal.enterUrl('http://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/master.zip');
             components.modals.modal.save();
             expect(components.definitions.page.countPlugins()).toBe(1);
@@ -114,51 +123,45 @@ describe('plugins section', function() {
         });
         it('should not add plugin if it is not a zip file', function (done) {
             components.definitions.page.openUploadPluginDialog();
-            components.modals.modal.enterName('tested-plugin2');
-
+            components.modals.modal.enterName('invalid-plugin-url');
             components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml');
             components.modals.modal.save();
 
             expect(element(by.css('.modal-dialog')).isDisplayed()).toBe(true);
             expect(element(by.cssContainingText('.invalid', 'The URL is Invalid, Should end with zip / tar / tar.gz')).isDisplayed()).toBe(true);
+            components.modals.modal.dismiss();
+
             expect(components.definitions.page.countPlugins()).toBe(1);
-
-            components.modals.modal.cancel();
-
+            components.definitions.page.deletePlugins(0);
             browser.sleep(200).then(done);
         });
-        it('should not allow to save plugin without name', function (done) {
+
+        /**
+         * See override issue COMPOSER-420 - https://cloudifysource.atlassian.net/browse/COMPOSER-420
+         * there's no sense in adding the same plugin with the same name, this is a bug in the design.
+
+        it('should allow overriding plagin', function (done) {
             components.definitions.page.openUploadPluginDialog();
-            expect($$('[ng-click="save($files)"]').get(0).getAttribute('disabled')).toBe('true');
-
-            components.modals.modal.cancel();
-
-            browser.sleep(200).then(done);
-        });
-        it('should add second plugin with the same name and source as in the first', function (done) {
-            components.definitions.page.openUploadPluginDialog();
-            components.modals.modal.enterName('tested-plugin2');
-
-            components.modals.modal.enterUrl('https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/master.zip');
+            components.modals.modal.enterName('tested-plugin-name');
+            components.modals.modal.enterUrl('http://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/master.zip');
             components.modals.modal.save();
 
-            expect(components.definitions.page.countPlugins()).toBe(2);
-            expect(components.definitions.page.getPluginInfo(1, 0)).toBe('tested-plugin2'); //Check plugin name
-            expect(components.definitions.page.getPluginInfo(0, 1)).toBe('tested-plugin2');//Check plugin source
+            expect(components.definitions.page.countPlugins()).toBe(2); // override
+            expect(components.definitions.page.getPluginInfo(1, 0)).toBe('tested-plugin-name'); //Check plugin name
+            expect(components.definitions.page.getPluginInfo(0, 1)).toBe('tested-plugin-name');//Check plugin source
 
             browser.sleep(200).then(done);
         });
-        it('should remove all plugins with the same name', function (done) {
-            components.definitions.page.deletePlugins(1);//delete plugin
-            expect(components.definitions.page.countPlugins()).toBe(1);
-            browser.sleep(200).then(done);
-        });
+
+         */
+
+        /**
+         *  end of section - at this point the list of plugins is empty
+         */
     });
 
     describe('rename plugin on the resources and definitions page (phantomjs)', function () {
         it('should rename plugin on the resources and definitions page', function (done) {
-            // add the plugin again
-            components.definitions.page.deletePlugins(0);//delete plugin
             components.definitions.page.openUploadPluginDialog();
             components.modals.modal.enterName('tested-plugin');
             components.modals.modal.enterUrl('https://github.com/cloudify-cosmo/cloudify-openstack-plugin/archive/master.zip');
@@ -176,39 +179,21 @@ describe('plugins section', function() {
             browser.sleep(200).then(done);
         });
         it('should show renamed plugin name after page was refreshed', function (done) {
-            browser.refresh();
+            browser.driver.navigate().refresh();
             expect(components.definitions.page.getPluginInfo(0, 0)).toBe('newName'); //Check plugin name
             expect(components.definitions.page.getPluginInfo(0, 1)).toBe('newName'); //Check plugin source
+            components.definitions.page.deletePlugins(0);
 
             browser.sleep(200).then(done);
         });
+
+        /**
+         *  end of section - at this point the list of plugins is empty
+         */
     });
 
-    describe('check plugin in operation', function() {
-        it('custom plugin should not exist in the operation list', function(done) {
-            //in order to make the test work needs to add an import first
-            components.layout.goToImports();
-            components.imports.page.openAddImportsDialog();
-            components.modals.modal.enterUrl('http://getcloudify.org.s3.amazonaws.com/spec/chef-plugin/1.3.1/plugin.yaml', 'imports');
-            components.modals.modal.save();
-
-            components.layout.goToDefinitions();
-            components.definitions.page.pushNewTypeBtn();//open inlineType view
-            components.definitions.types.setTypeName('inlineType');//set inlineType name
-
-            components.definitions.types.clickOperation(0);//click inlineType operation
-
-            components.definitions.page.openDefinitionsImplementationModalEditor();
-            components.topology.page.selectSpecificImplementation('chef.chef_plugin.operations.operation');
-            components.modals.modal.done();//click done in editor modal
-
-            components.definitions.types.clickEnterBtn();
-            expect(element.all(by.repeater('item in interface.data track by $index')).get(0).all(by.css('.item-block')).get(1).getText()).toBe('aws.ec2.elasticip.creation_validation');
-            components.definitions.types.closeType();//push cancel button
-            browser.sleep(200).then(done);
-        });
-
-        it('custom plugin should exist in the operation list', function(done) {
+    describe('check plugin has operations', function() {
+        it('plugin should exist in the operation list', function(done) {
 
             components.definitions.page.openUploadPluginDialog();
             components.modals.modal.enterName('tested-plugin');
@@ -218,16 +203,22 @@ describe('plugins section', function() {
             components.definitions.page.pushNewTypeBtn();//open inlineType view
             components.definitions.types.setTypeName('inlineType');//set inlineType name
 
-            components.definitions.types.clickOperation(0);//click inlineType operation
-
+            if(browser.browserName === 'chrome'){
+                components.definitions.types.clickOperation(0);//click inlineType operation - this won't work for phantom
+            }
+            else{
+                components.definitions.types.mouseleaveOperation(0); //click inlineType operation - this will work for phantom
+                browser.sleep(400);
+            }
             components.definitions.page.openDefinitionsImplementationModalEditor();
-            components.topology.page.selectSpecificImplementation('ec2.elasticip.creation_validation');
+            components.topology.page.selectSpecificImplementation('cinder_plugin.volume.create');
             components.modals.modal.done();//click done in editor modal
 
             components.definitions.types.clickEnterBtn();
-            expect(element.all(by.repeater('item in interface.data track by $index')).get(0).all(by.css('.item-block')).get(1).getText()).toBe('tested-plugin.ec2.elasticip.creation_validation');
+            expect(element.all(by.repeater('item in interface.data track by $index')).get(0).all(by.css('.item-block')).get(1).getText()).toBe('tested-plugin.cinder_plugin.volume.create');
             components.definitions.types.closeType();//push cancel button
 
+            components.definitions.page.deletePlugins(0);
             browser.sleep(200).then(done);
 
         });
