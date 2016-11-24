@@ -76,6 +76,11 @@ exports.clickOperation= function(number){
     return element.all(by.repeater('item in interface.data track by $index')).get(number).click();
 };
 
+exports.mouseleaveOperation = function(number){
+    if(!number){number = 0;}
+    return $$('[ng-mouseleave="operationNameValidation(interface, $parent.$index)"]').get(number).click();
+};
+
 exports.renameOperation = function(newName, type, number){
     return element.all(by.model('item.' + type)).get(number).clear().sendKeys(newName);
 };
