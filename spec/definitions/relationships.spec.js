@@ -6,7 +6,7 @@ describe('Relationships section', function() {
     describe('login',function() {
         browser.get('/');
 
-        components.login.login('user-' + new Date().getTime());
+        components.login.loginDefault();
         // navigate to definitions tab
         browser.sleep(2000);
         components.layout.goToDefinitions();
@@ -186,7 +186,7 @@ describe('Relationships section', function() {
             browser.sleep(200).then(done);
 
         });
-        it('should remove relationship input', function(done) {
+        xit('should remove relationship input', function(done) {
 
             components.definitions.types.openInputsBlock();//open inputs block
             expect(components.definitions.types.countInputs()).toBe(1);//count inputs
@@ -198,7 +198,7 @@ describe('Relationships section', function() {
             browser.sleep(200).then(done);
 
         });
-        it('should not save new relationship input if name already exist', function(done) {
+        xit('should not save new relationship input if name already exist', function(done) {
 
             components.definitions.types.openInputsBlock();//open inputs block
             components.definitions.types.addInput();//add custom input
