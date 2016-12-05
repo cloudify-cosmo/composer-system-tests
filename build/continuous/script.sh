@@ -26,7 +26,7 @@ json -I -f ${CONFIG_FILE} -e "this.environmentVariables.BROWSER_TYPE=\"${BROWSER
 ls -ll ${CONFIG_FILE}
 
 # replace json file placeholders with environment variables. https://github.com/guy-mograbi-at-gigaspaces/node-replace-env-in-json-file
-curl -L https://goo.gl/j6qnth | INJECT_FILE="${CONFIG_FILE}" node
+curl -L https://raw.githubusercontent.com/cloudify-cosmo/node-replace-env-in-json-file/master/inject.js | INJECT_FILE="${CONFIG_FILE}" node
 
 chmod 600  ${PEM_FILE}
 
