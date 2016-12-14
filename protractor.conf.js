@@ -1,6 +1,8 @@
 // in case of new env and missing: /node_modules/protractor/selenium/chromedriver.exe run:
 // node_modules/protractor/bin/webdriver-manager update
-// If chrome crashes without running tests, make sure you have chromedriver installed. I installed it globally with npm install -g chromedriver
+// If chrome crashes without running tests, make sure you have chromedriver that corresponds to your Chrome version.
+// Check the latest version here https://sites.google.com/a/chromium.org/chromedriver/downloads and update the
+// postinstall section of package.json (chromedriver:version). Then run `npm run postinstall`
 
 var capabilities = {
     'browserName': 'chrome',
@@ -40,7 +42,7 @@ function get_suite(file){
 
 // An example configuration file.
 exports.config = {
-    seleniumAddress: 'http://localhost:4444/wd/hub',
+    // seleniumAddress: 'http://localhost:4444/wd/hub',
     //  chromeDriver: '../node_modules/protractor/npm run update-webdriver',
 
 
